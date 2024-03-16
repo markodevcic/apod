@@ -1,0 +1,10 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    always_use_package_imports: true
+    no_leading_underscores_for_local_identifiers: false
+    no_leading_underscores_for_library_prefixes: false
+    constant_identifier_names: false
+    use_build_context_synchronously: false
+
