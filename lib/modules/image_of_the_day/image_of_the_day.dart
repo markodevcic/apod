@@ -35,17 +35,20 @@ class _ImageOfTheDayState extends ConsumerState<ImageOfTheDay> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(
-            'assets/background.jpg',
-            fit: BoxFit.cover,
+          Hero(
+            tag: 'splash',
+            child: Image.asset(
+              'assets/background.png',
+              fit: BoxFit.cover,
+            ),
           ),
           Align(
             alignment: Alignment.topRight,
             child: Padding(
               padding: EdgeInsets.only(
-                top: MediaQuery.of(context).padding.top + 64,
-                left: 140,
-                right: 32,
+                top: MediaQuery.of(context).padding.top + 32,
+                left: 16,
+                right: 160,
               ),
               child: Animate(
                 delay: 500.ms,
@@ -65,7 +68,6 @@ class _ImageOfTheDayState extends ConsumerState<ImageOfTheDay> {
                 ],
                 child: Text(
                   'Astronomy Picture of the Day',
-                  textAlign: TextAlign.right,
                   style: context.textTheme.headlineSmall!.copyWith(
                     color: AppColor.lunarWhite.withOpacity(0.7),
                   ),
@@ -86,6 +88,7 @@ class _ImageOfTheDayState extends ConsumerState<ImageOfTheDay> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 padding: EdgeInsets.only(
+                  top: 16,
                   left: 16,
                   right: 16,
                   bottom: MediaQuery.of(context).padding.bottom + 16,
@@ -96,9 +99,9 @@ class _ImageOfTheDayState extends ConsumerState<ImageOfTheDay> {
                     end: Alignment.topCenter,
                     stops: const [0.9, 0.93, 0.96, 1.0],
                     colors: [
-                      AppColor.deepSpaceBlack,
                       AppColor.deepSpaceBlack.withOpacity(0.6),
-                      AppColor.deepSpaceBlack.withOpacity(0.3),
+                      AppColor.deepSpaceBlack.withOpacity(0.4),
+                      AppColor.deepSpaceBlack.withOpacity(0.2),
                       Colors.transparent,
                     ],
                   ),

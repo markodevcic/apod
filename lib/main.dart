@@ -1,9 +1,9 @@
+import 'package:apod/constants/app_color.dart';
+import 'package:apod/modules/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:apod/constants/app_color.dart';
-import 'package:apod/modules/image_of_the_day/image_of_the_day.dart';
 
 Future<void> main() async {
   await dotenv.load();
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           scaffoldBackgroundColor: AppColor.deepSpaceBlack),
-      home: const ImageOfTheDay(),
+      home: const Splash(),
     );
   }
 }
