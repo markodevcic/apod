@@ -42,46 +42,18 @@ class _ImageOfTheDayState extends ConsumerState<ImageOfTheDay> {
               fit: BoxFit.cover,
             ),
           ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).padding.top + 32,
-                left: 16,
-                right: 160,
-              ),
-              child: Animate(
-                delay: 500.ms,
-                effects: [
-                  FadeEffect(
-                    begin: 0,
-                    end: 1,
-                    duration: 500.ms,
-                  ),
-                  BlurEffect(
-                    curve: Curves.easeInOut,
-                    delay: 500.ms,
-                    begin: const Offset(10, 10),
-                    end: const Offset(0, 0),
-                    duration: 1000.ms,
-                  )
-                ],
-                child: Text(
-                  'Astronomy Picture of the Day',
-                  style: context.textTheme.headlineSmall!.copyWith(
-                    color: AppColor.lunarWhite.withOpacity(0.7),
-                  ),
-                ),
-              ),
-            ),
-          ),
           Animate(
-            delay: 2000.ms,
+            delay: 1000.ms,
             effects: [
+              MoveEffect(
+                duration: 500.ms,
+                begin: const Offset(0, 100),
+                end: const Offset(0, 0),
+              ),
               FadeEffect(
+                duration: 500.ms,
                 begin: 0,
                 end: 1,
-                duration: 500.ms,
               ),
             ],
             child: Align(
@@ -164,6 +136,26 @@ class _ImageOfTheDayState extends ConsumerState<ImageOfTheDay> {
                       ],
                     ),
                   ],
+                ),
+              ),
+            ),
+          ),
+          Hero(
+            tag: 'title',
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.1,
+                  left: 80,
+                  right: 80,
+                ),
+                child: Text(
+                  'Astronomy Picture of the Day',
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.headlineSmall!.copyWith(
+                    color: AppColor.lunarWhite.withOpacity(0.7),
+                  ),
                 ),
               ),
             ),

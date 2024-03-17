@@ -1,6 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:apod/constants/app_color.dart';
 import 'package:apod/constants/initial_date.dart';
 import 'package:apod/providers/images_by_month/images_by_month_provider.dart';
@@ -9,6 +6,9 @@ import 'package:apod/providers/page_storage_key_provider.dart';
 import 'package:apod/utilities/extensions.dart';
 import 'package:apod/utilities/helpers.dart';
 import 'package:apod/widgets/buttons/app_outlined_buttons.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ImageDateWheelPicker extends ConsumerStatefulWidget {
   const ImageDateWheelPicker(
@@ -71,7 +71,7 @@ class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
           builder: (builderContext) {
             return Center(
               child: Material(
-                color: AppColor.cosmicBlue.withOpacity(0.8),
+                color: AppColor.cosmicBlue.withOpacity(0.9),
                 borderRadius: const BorderRadius.all(Radius.circular(32)),
                 child: Container(
                   decoration: const BoxDecoration(
@@ -82,7 +82,7 @@ class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
                     right: 8,
                     top: 32,
                   ),
-                  width: 260,
+                  width: 280,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

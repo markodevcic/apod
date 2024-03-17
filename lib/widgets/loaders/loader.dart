@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:apod/constants/app_color.dart';
+import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Loader extends StatelessWidget {

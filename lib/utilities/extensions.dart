@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension NavigationExtension on BuildContext {
-  void push(Widget widget) {
+  void push(Widget widget, {Duration? transitionDuration}) {
     Navigator.push(
       this,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => widget,
+        transitionDuration:
+            transitionDuration ?? const Duration(milliseconds: 300),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(opacity: animation, child: child);
         },
@@ -14,13 +16,28 @@ extension NavigationExtension on BuildContext {
     );
   }
 
-  void pushReplacement(Widget widget) {
+  void pushReplacement(Widget widget, {Duration? transitionDuration}) {
     Navigator.pushReplacement(
       this,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => widget,
+        transitionDuration:
+            transitionDuration ?? const Duration(milliseconds: 300),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(opacity: animation, child: child);
+          const begin = 0.0;
+          const end = 1.0;
+          const curve = Curves.decelerate;
+
+          final tween = Tween(begin: begin, end: end);
+          final curvedAnimation = CurvedAnimation(
+            parent: animation,
+            curve: curve,
+          );
+
+          return FadeTransition(
+            opacity: tween.animate(curvedAnimation),
+            child: child,
+          );
         },
       ),
     );

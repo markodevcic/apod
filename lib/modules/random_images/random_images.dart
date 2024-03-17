@@ -1,7 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:apod/constants/app_color.dart';
 import 'package:apod/modules/images_by_month/widgets/view/horizontal_image_list_view.dart';
 import 'package:apod/modules/images_by_month/widgets/view/vertical_image_list_view.dart';
@@ -10,6 +8,8 @@ import 'package:apod/providers/random_images_provider.dart';
 import 'package:apod/utilities/extensions.dart';
 import 'package:apod/widgets/buttons/app_outlined_buttons.dart';
 import 'package:apod/widgets/loaders/loader.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RandomImages extends ConsumerStatefulWidget {
   const RandomImages({super.key});
@@ -39,7 +39,8 @@ class _RandomPicturesState extends ConsumerState<RandomImages> {
         titleTextStyle: context.textTheme.titleMedium,
         automaticallyImplyLeading: false,
         elevation: 0,
-        leading: AppOutlinedButton.back(
+        leading: AppOutlinedButton(
+          icon: Icons.home_rounded,
           onPressed: () => context.pop(),
         ),
         backgroundColor: AppColor.galacticPurple.withOpacity(0.8),

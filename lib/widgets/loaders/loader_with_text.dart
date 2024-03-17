@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:apod/utilities/extensions.dart';
-import 'package:apod/widgets/texts/animated_ttitle.dart';
 import 'package:apod/widgets/loaders/loader.dart';
+import 'package:apod/widgets/texts/animated_ttitle.dart';
+import 'package:flutter/material.dart';
 
 class LoaderWithText extends Loader {
   const LoaderWithText({super.key, super.size, required this.text});
@@ -14,7 +14,7 @@ class LoaderWithText extends Loader {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         super.build(context),
-        const SizedBox(height: 46),
+        const SizedBox(height: 32),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 92),
           child: AnimatedSwitcher(
