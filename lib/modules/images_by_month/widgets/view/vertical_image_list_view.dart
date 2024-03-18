@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:apod/models/image_response/image_response.dart';
 import 'package:apod/widgets/media/app_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class VerticalImageList extends ConsumerWidget {
   const VerticalImageList({super.key, required this.images});
@@ -10,24 +10,53 @@ class VerticalImageList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListView.separated(
-      padding: EdgeInsets.only(
-          top: MediaQuery.of(context).padding.top + 8,
-          left: 4,
-          right: 4,
-          bottom: MediaQuery.of(context).padding.bottom + 4),
-      itemCount: images.length,
-      itemBuilder: (context, index) {
-        final image = images[index];
-
-        return Hero(
-          tag: image.title!,
-          child: AppNetworkImage.part(
-            image: image,
+    return OrientationBuilder(builder: (context, orientation) {
+      if (orientation == Orientation.landscape) {
+        return GridView.builder(
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top + 8,
+              left: 4,
+              right: 4,
+              bottom: MediaQuery.of(context).padding.bottom + 4),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 4,
+            mainAxisSpacing: 4,
           ),
+          itemCount: images.length,
+          itemBuilder: (context, index) {
+            final image = images[index];
+
+            return Hero(
+              tag: image.title!,
+              child: AppNetworkImage(
+                image: image,
+                fit: BoxFit.cover,
+              ),
+            );
+          },
         );
-      },
-      separatorBuilder: (context, index) => const SizedBox(height: 4),
-    );
+      } else {
+        return ListView.separated(
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top + 8,
+              left: 4,
+              right: 4,
+              bottom: MediaQuery.of(context).padding.bottom + 4),
+          itemCount: images.length,
+          itemBuilder: (context, index) {
+            final image = images[index];
+
+            return Hero(
+              tag: image.title!,
+              child: AppNetworkImage.part(
+                image: image,
+              ),
+            );
+          },
+          separatorBuilder: (context, index) => const SizedBox(height: 4),
+        );
+      }
+    });
   }
 }

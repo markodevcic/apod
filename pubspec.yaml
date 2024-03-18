@@ -31,6 +31,7 @@ dependencies:
   fluttertoast: ^8.2.4
   webview_flutter: ^4.7.0
   url_launcher: ^6.2.5
+  snapping_page_scroll: ^3.1.0
   
 dev_dependencies:
   flutter_test:

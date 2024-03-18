@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:apod/models/image_response/image_response.dart';
 import 'package:apod/utilities/extensions.dart';
 import 'package:apod/widgets/buttons/app_outlined_buttons.dart';
 import 'package:apod/widgets/notifications/toast.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -24,7 +24,7 @@ class ImagePreview extends StatelessWidget {
               imageProvider: CachedNetworkImageProvider(image.url!),
               heroAttributes: PhotoViewHeroAttributes(tag: image.title!),
               minScale: PhotoViewComputedScale.contained,
-              maxScale: PhotoViewComputedScale.covered * 3,
+              maxScale: PhotoViewComputedScale.contained * 3,
             ),
           ),
           Positioned(

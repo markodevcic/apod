@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:apod/constants/app_color.dart';
 import 'package:apod/models/image_response/image_response.dart';
 import 'package:apod/widgets/media/app_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:snapping_page_scroll/snapping_page_scroll.dart';
 
 class HorizontalImageListView extends ConsumerWidget {
   const HorizontalImageListView({super.key, required this.images});
@@ -14,7 +15,7 @@ class HorizontalImageListView extends ConsumerWidget {
     return Padding(
       padding: EdgeInsets.only(
           top: 16, bottom: MediaQuery.of(context).padding.bottom + 16),
-      child: PageView.builder(
+      child: SnappingPageScroll.builder(
         controller: PageController(viewportFraction: 0.9),
         itemCount: images.length,
         itemBuilder: (context, index) {

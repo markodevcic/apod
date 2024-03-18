@@ -1,45 +1,55 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:apod/constants/app_color.dart';
 import 'package:apod/models/image_response/image_response.dart';
 import 'package:apod/modules/image_details/image_details.dart';
 import 'package:apod/utilities/extensions.dart';
-import 'package:apod/widgets/texts/animated_ttitle.dart';
 import 'package:apod/widgets/loaders/loader.dart';
+import 'package:apod/widgets/texts/animated_ttitle.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 
 class AppNetworkImage extends StatelessWidget {
   const AppNetworkImage({
     super.key,
     required this.image,
+    this.fit,
     this.height,
+    this.width,
   })  : borderRadius = 8,
         isButton = true;
 
   const AppNetworkImage.noButton({
     super.key,
     required this.image,
+    this.fit,
   })  : height = 100,
+        width = null,
         borderRadius = 8,
         isButton = false;
 
   const AppNetworkImage.part({
     super.key,
     required this.image,
+    this.fit,
   })  : height = 100,
+        width = null,
         borderRadius = 8,
         isButton = true;
 
   const AppNetworkImage.full({
     super.key,
     required this.image,
+    this.fit,
   })  : height = null,
+        width = null,
         borderRadius = 0,
         isButton = true;
 
   final ImageResponse image;
   final double? height;
+  final double? width;
   final double borderRadius;
   final bool isButton;
+  final BoxFit? fit;
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +59,14 @@ class AppNetworkImage extends StatelessWidget {
         imageUrl:
             image.mediaType == 'image' ? image.url! : image.thumbnailUrl ?? '',
         height: height,
+        width: width,
         placeholder: (_, __) => const Loader(),
         imageBuilder: (_, imageProvider) => Stack(
           fit: StackFit.expand,
           children: [
             Image(
               image: imageProvider,
-              fit: BoxFit.fitWidth,
+              fit: fit ?? BoxFit.fitWidth,
             ),
             if (image.mediaType == 'video')
               Positioned(
