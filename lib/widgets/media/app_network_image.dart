@@ -14,8 +14,9 @@ class AppNetworkImage extends StatelessWidget {
     this.fit,
     this.height,
     this.width,
-  })  : borderRadius = 8,
-        isButton = true;
+    this.borderRadius = 8,
+    this.isButton = true,
+  });
 
   const AppNetworkImage.noButton({
     super.key,

@@ -3,9 +3,9 @@ import 'package:apod/modules/image_details/widgets/image_and_title.dart';
 import 'package:apod/modules/image_preview/image_preview.dart';
 import 'package:apod/utilities/extensions.dart';
 import 'package:apod/widgets/buttons/app_outlined_buttons.dart';
+import 'package:apod/widgets/media/app_network_image.dart';
 import 'package:apod/widgets/texts/animated_text.dart';
 import 'package:apod/widgets/texts/animated_ttitle.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ImageDetails extends StatelessWidget {
@@ -54,9 +54,10 @@ class ImageDetails extends StatelessWidget {
                       },
                       child: Hero(
                         tag: image.title!,
-                        child: CachedNetworkImage(
-                          imageUrl: image.url!,
+                        child: AppNetworkImage(
+                          image: image,
                           fit: BoxFit.fitHeight,
+                          isButton: false,
                         ),
                       ),
                     ),

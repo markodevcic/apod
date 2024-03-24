@@ -21,7 +21,10 @@ class ImagePreview extends StatelessWidget {
         children: [
           Center(
             child: PhotoView(
-              imageProvider: CachedNetworkImageProvider(image.url!),
+              imageProvider: CachedNetworkImageProvider(
+                  image.mediaType == 'image'
+                      ? image.url!
+                      : image.thumbnailUrl!),
               heroAttributes: PhotoViewHeroAttributes(tag: image.title!),
               minScale: PhotoViewComputedScale.contained,
               maxScale: PhotoViewComputedScale.contained * 3,
