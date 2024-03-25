@@ -41,15 +41,12 @@ class MenuSection extends ConsumerWidget {
                 ? Alignment.bottomCenter
                 : Alignment.centerRight,
             child: Container(
-              height: orientation == Orientation.portrait
-                  ? MediaQuery.of(context).size.height * 0.6
-                  : MediaQuery.of(context).size.height,
               width: orientation == Orientation.portrait
                   ? double.infinity
-                  : MediaQuery.of(context).size.width * 0.6,
+                  : MediaQuery.of(context).size.width * 0.65,
               padding: EdgeInsets.only(
-                top: orientation == Orientation.portrait ? 16 : 46,
-                left: orientation == Orientation.portrait ? 16 : 46,
+                top: orientation == Orientation.portrait ? 46 : 16,
+                left: orientation == Orientation.portrait ? 16 : 64,
                 right: 16,
                 bottom: MediaQuery.of(context).padding.bottom + 16,
               ),
@@ -77,8 +74,8 @@ class MenuSection extends ConsumerWidget {
                   const AnimatedTitle(
                     title: 'Today\'s Picture',
                   ),
-                  const SizedBox(height: 24),
-                  Expanded(
+                  const SizedBox(height: 16),
+                  Flexible(
                     child: AnimatedSwitcher(
                       duration: 500.ms,
                       child: image != null
@@ -87,7 +84,6 @@ class MenuSection extends ConsumerWidget {
                               child: AppNetworkImage(
                                 image: image,
                                 height: 200,
-                                fit: BoxFit.cover,
                               ),
                             )
                           : const SizedBox(

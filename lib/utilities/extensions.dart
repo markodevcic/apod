@@ -75,6 +75,15 @@ extension DateStringExtension on String {
 
     return formattedDate;
   }
+
+  bool isToday() {
+    final now = DateTime.now().toLocal();
+    var date = DateTime.parse(this);
+
+    return date.day == now.day &&
+        date.month == now.month &&
+        date.year == now.year;
+  }
 }
 
 extension DateExtension on DateTime {

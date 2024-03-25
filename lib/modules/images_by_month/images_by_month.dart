@@ -1,8 +1,5 @@
-import 'dart:developer';
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:apod/constants/app_color.dart';
 import 'package:apod/modules/images_by_month/widgets/image_date_picker/image_date_picker.dart';
 import 'package:apod/modules/images_by_month/widgets/view/horizontal_image_list_view.dart';
@@ -10,9 +7,12 @@ import 'package:apod/modules/images_by_month/widgets/view/vertical_image_list_vi
 import 'package:apod/providers/images_by_month/images_by_month_provider.dart';
 import 'package:apod/providers/images_date_provider.dart';
 import 'package:apod/providers/page_storage_key_provider.dart';
+import 'package:apod/providers/today_image_provider.dart';
 import 'package:apod/utilities/extensions.dart';
 import 'package:apod/widgets/buttons/app_outlined_buttons.dart';
 import 'package:apod/widgets/loaders/loader_with_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ImagesByMonth extends ConsumerStatefulWidget {
   const ImagesByMonth({super.key});
@@ -36,8 +36,6 @@ class _MyHomePageState extends ConsumerState<ImagesByMonth> {
     final pageStorageKey = ref.read(pageStorageKeyProvider);
     final date = ref.watch(imagesDateProvider);
 
-    log('loading...');
-
     return Scaffold(
       extendBodyBehindAppBar: isVertical ? true : false,
       appBar: AppBar(
@@ -47,7 +45,10 @@ class _MyHomePageState extends ConsumerState<ImagesByMonth> {
         backgroundColor: AppColor.galacticPurple.withOpacity(0.8),
         leading: AppOutlinedButton(
           icon: Icons.home_rounded,
-          onPressed: () => context.pop(),
+          onPressed: () {
+            ref.read(todayImageProvider.notifier).get();
+            context.pop();
+          },
         ),
         actions: const [
           ImagesMonthPicker(),

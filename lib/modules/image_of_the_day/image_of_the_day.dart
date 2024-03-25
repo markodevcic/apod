@@ -12,11 +12,26 @@ class ImageOfTheDay extends ConsumerStatefulWidget {
   ConsumerState<ImageOfTheDay> createState() => _ImageOfTheDayState();
 }
 
-class _ImageOfTheDayState extends ConsumerState<ImageOfTheDay> {
+class _ImageOfTheDayState extends ConsumerState<ImageOfTheDay>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     ref.read(todayImageProvider.notifier).get();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      ref.read(todayImageProvider.notifier).get();
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override

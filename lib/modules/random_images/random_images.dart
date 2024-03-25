@@ -5,6 +5,7 @@ import 'package:apod/modules/images_by_month/widgets/view/horizontal_image_list_
 import 'package:apod/modules/images_by_month/widgets/view/vertical_image_list_view.dart';
 import 'package:apod/providers/page_storage_key_provider.dart';
 import 'package:apod/providers/random_images_provider.dart';
+import 'package:apod/providers/today_image_provider.dart';
 import 'package:apod/utilities/extensions.dart';
 import 'package:apod/widgets/buttons/app_outlined_buttons.dart';
 import 'package:apod/widgets/loaders/loader.dart';
@@ -41,7 +42,10 @@ class _RandomPicturesState extends ConsumerState<RandomImages> {
         elevation: 0,
         leading: AppOutlinedButton(
           icon: Icons.home_rounded,
-          onPressed: () => context.pop(),
+          onPressed: () {
+            ref.read(todayImageProvider.notifier).get();
+            context.pop();
+          },
         ),
         backgroundColor: AppColor.galacticPurple.withOpacity(0.8),
         flexibleSpace: ClipRRect(
