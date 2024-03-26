@@ -11,8 +11,6 @@ APOD is a captivating app that allows users to explore the wonders of the cosmos
 2. **Monthly Archives**: Explore a wealth of celestial imagery by selecting specific months using the intuitive image picker interface.
 
    [images_by_month_portrait_sample.webm](https://github.com/markodevcic/apod/assets/64442020/cce45d7f-128e-433f-8273-617963cc960d)
-   
-   [images_by_month_landscape_sample.webm](https://github.com/markodevcic/apod/assets/64442020/ae9c85a6-f17f-4417-a7e4-94804192df1c)
 
 4. **Random Image Generator**: Embark on a serendipitous journey through space and time with the random image list feature, uncovering hidden gems from the vast universe.
 
