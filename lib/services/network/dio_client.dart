@@ -3,13 +3,11 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:apod/constants/env_variable.dart';
+import 'package:apod/models/api_response.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:apod/constants/env_variable.dart';
-import 'package:apod/models/api_response.dart';
-import 'package:apod/services/network/method_enum.dart';
 
 class DioClient {
   DioClient._internal();
@@ -18,7 +16,7 @@ class DioClient {
 
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: dotenv.get(EnvVariable.baseUrl),
+      baseUrl: 'https://api.nasa.gov/planetary/apod',
       connectTimeout: const Duration(seconds: 10),
       contentType: 'application/json; charset=utf-8',
     ),
@@ -53,26 +51,23 @@ class DioClient {
     );
 
   static Future<ApiResponse> apiCall({
-    required String path,
-    Method method = Method.GET,
     Map<String, dynamic>? queryParameters,
-    dynamic data,
     CancelToken? cancelToken,
-    String contentType = 'application/json; charset=utf-8',
   }) async {
-    final options = Options(
-      method: method.name,
-      headers: {
-        'Content-Type': contentType,
-      },
-    );
-
     try {
       final response = await dioClient._dio.request(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
+        '',
+        queryParameters: {
+          'api_key': EnvVariable.apiKey,
+          'thumbs': true,
+          if (queryParameters != null) ...queryParameters,
+        },
+        options: Options(
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+          },
+        ),
         cancelToken: cancelToken,
       );
 

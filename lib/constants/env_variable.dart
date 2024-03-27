@@ -1,4 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class EnvVariable {
-  static const String baseUrl = 'BASE_URL';
-  static const String apiKey = 'API_KEY';
+  static String apiKey = dotenv.get('API_KEY');
 }
