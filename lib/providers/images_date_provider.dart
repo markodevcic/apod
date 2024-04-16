@@ -31,21 +31,3 @@ class ImagesDateNotifier extends StateNotifier<DateTime> {
     }
   }
 }
-
-// final dateWheelPickerProvider = Provider<DateWheelPickerProvider>((ref) {
-//   return DateWheelPickerProvider(DateTime.now());
-// });
-
-// class DateWheelPickerProvider {
-//   DateWheelPickerProvider(this.date);
-
-//   DateTime date;
-
-//   void setMonth(int month) {
-//     date = date.copyWith(month: month);
-//   }
-
-//   void setYear(int year) {
-//     date = date.copyWith(year: year);
-//   }
-// }

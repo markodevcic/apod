@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:apod/constants/initial_date.dart';
 import 'package:apod/modules/images_by_month/widgets/image_date_picker/image_date_wheel_picker.dart';
 import 'package:apod/providers/images_by_month/images_by_month_provider.dart';
@@ -7,6 +5,8 @@ import 'package:apod/providers/images_date_provider.dart';
 import 'package:apod/providers/page_storage_key_provider.dart';
 import 'package:apod/utilities/debouncer.dart';
 import 'package:apod/widgets/buttons/app_outlined_buttons.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ImagesMonthPicker extends ConsumerWidget {
   const ImagesMonthPicker({super.key});
@@ -19,7 +19,7 @@ class ImagesMonthPicker extends ConsumerWidget {
     final pageStorageKey = ref.read(pageStorageKeyProvider);
 
     return SizedBox(
-      width: 260,
+      width: 256,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -29,13 +29,9 @@ class ImagesMonthPicker extends ConsumerWidget {
                 ? null
                 : () {
                     ref.read(imagesDateProvider.notifier).decrementOneMonth();
-                    debouncer.run(() async {
-                      final success =
-                          await ref.refresh(getImagesByMonthProvider.future);
-
-                      if (success) {
-                        pageStorageKey.updateKeys();
-                      }
+                    debouncer.run(() {
+                      ref.invalidate(imagesByMonthProvider);
+                      pageStorageKey.updateKeys();
                     });
                   },
             icon: Icons.keyboard_arrow_left_rounded,
@@ -50,13 +46,9 @@ class ImagesMonthPicker extends ConsumerWidget {
                 ? null
                 : () {
                     ref.read(imagesDateProvider.notifier).incrementOneMonth();
-                    debouncer.run(() async {
-                      final success =
-                          await ref.refresh(getImagesByMonthProvider.future);
-
-                      if (success) {
-                        pageStorageKey.updateKeys();
-                      }
+                    debouncer.run(() {
+                      ref.invalidate(imagesByMonthProvider);
+                      pageStorageKey.updateKeys();
                     });
                   },
             icon: Icons.keyboard_arrow_right_rounded,

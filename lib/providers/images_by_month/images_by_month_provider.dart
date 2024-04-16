@@ -6,14 +6,11 @@ import 'package:apod/services/network/dio_client.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final getImagesByMonthProvider = FutureProvider.autoDispose<bool>((ref) async {
+final getImagesByMonthProvider =
+    FutureProvider<List<ImageResponse>?>((ref) async {
   final imagesByMonth = ref.watch(imagesByMonthProvider.notifier);
 
-  ref.invalidateSelf();
-
-  await imagesByMonth.get();
-
-  return true;
+  return await imagesByMonth.get();
 });
 
 final imagesByMonthProvider =
@@ -28,12 +25,12 @@ class ImagesByMonthNotifier extends StateNotifier<List<ImageResponse>?> {
 
   CancelToken cancelToken = CancelToken();
 
-  Future<void> get() async {
+  Future<List<ImageResponse>?> get() async {
     final (startDate, endDate) = ImagesByMonthProviderHelper.setStarAndEndDate(
         ref.read(imagesDateProvider));
 
     cancelToken.cancel();
-    if (cancelToken.isCancelled) cancelToken = CancelToken();
+    cancelToken = CancelToken();
 
     final response = await DioClient.apiCall(
       queryParameters: {
@@ -51,5 +48,7 @@ class ImagesByMonthNotifier extends StateNotifier<List<ImageResponse>?> {
         state = null;
       },
     );
+
+    return state;
   }
 }

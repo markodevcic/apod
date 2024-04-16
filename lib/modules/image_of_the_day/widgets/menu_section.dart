@@ -1,11 +1,11 @@
-import 'package:apod/constants/app_color.dart';
 import 'package:apod/modules/images_by_month/images_by_month.dart';
 import 'package:apod/modules/random_images/random_images.dart';
+import 'package:apod/modules/settings/constants.dart';
 import 'package:apod/providers/images_by_month/images_by_month_provider.dart';
 import 'package:apod/providers/random_images_provider.dart';
 import 'package:apod/providers/today_image_provider.dart';
 import 'package:apod/utilities/extensions.dart';
-import 'package:apod/widgets/buttons/app_outlined_buttons.dart';
+import 'package:apod/widgets/buttons/app_tile.dart';
 import 'package:apod/widgets/loaders/loader.dart';
 import 'package:apod/widgets/media/app_network_image.dart';
 import 'package:apod/widgets/texts/animated_ttitle.dart';
@@ -60,71 +60,59 @@ class MenuSection extends ConsumerWidget {
                       : Alignment.centerLeft,
                   stops: const [0.9, 0.93, 0.96, 1.0],
                   colors: [
-                    AppColor.deepSpaceBlack.withOpacity(0.6),
-                    AppColor.deepSpaceBlack.withOpacity(0.4),
-                    AppColor.deepSpaceBlack.withOpacity(0.2),
+                    AppColor.deepSpaceBlack.color.withOpacity(0.6),
+                    AppColor.deepSpaceBlack.color.withOpacity(0.4),
+                    AppColor.deepSpaceBlack.color.withOpacity(0.2),
                     Colors.transparent,
                   ],
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const AnimatedTitle(
-                    title: 'Today\'s Picture',
-                  ),
-                  const SizedBox(height: 16),
-                  Flexible(
-                    child: AnimatedSwitcher(
-                      duration: 500.ms,
-                      child: image != null
-                          ? Hero(
-                              tag: image.title!,
-                              child: AppNetworkImage(
-                                image: image,
-                                height: 200,
-                              ),
-                            )
-                          : const SizedBox(
-                              height: 200,
-                              child: Loader(),
-                            ),
+              child: Material(
+                color: Colors.transparent,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const AnimatedTitle(
+                      title: 'Today\'s Picture',
                     ),
-                  ),
-                  const SizedBox(height: 32),
-                  Row(
-                    children: [
-                      const AnimatedTitle(
-                        title: 'Explore Pictures by Month',
+                    const SizedBox(height: 16),
+                    Flexible(
+                      child: AnimatedSwitcher(
+                        duration: 500.ms,
+                        child: image != null
+                            ? Hero(
+                                tag: image.title!,
+                                child: AppNetworkImage(
+                                  image: image,
+                                  height: 200,
+                                ),
+                              )
+                            : const SizedBox(
+                                height: 200,
+                                child: Loader(),
+                              ),
                       ),
-                      const Spacer(),
-                      AppOutlinedButton(
-                        onPressed: () {
-                          ref.invalidate(imagesByMonthProvider);
-                          context.push(const ImagesByMonth());
-                        },
-                        icon: Icons.arrow_forward_ios,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      const AnimatedTitle(
-                        title: 'View Random Pictures',
-                      ),
-                      const Spacer(),
-                      AppOutlinedButton(
-                        onPressed: () {
-                          ref.invalidate(randomImagesProvider);
-                          context.push(const RandomImages());
-                        },
-                        icon: Icons.arrow_forward_ios,
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                    const SizedBox(height: 32),
+                    AppTile.button(
+                      title: 'Explore Pictures by Month',
+                      color: AppColor.deepSpaceBlack.color,
+                      onTap: () {
+                        ref.invalidate(imagesByMonthProvider);
+                        context.push(const ImagesByMonth());
+                      },
+                    ),
+                    AppTile.button(
+                      title: 'View Random Pictures',
+                      color: AppColor.deepSpaceBlack.color,
+                      onTap: () {
+                        ref.invalidate(randomImagesProvider);
+                        context.push(const RandomImages());
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           );

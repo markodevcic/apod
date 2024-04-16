@@ -1,6 +1,7 @@
 import 'package:apod/modules/image_of_the_day/widgets/app_title.dart';
 import 'package:apod/modules/image_of_the_day/widgets/background_logo_image.dart';
 import 'package:apod/modules/image_of_the_day/widgets/menu_section.dart';
+import 'package:apod/modules/image_of_the_day/widgets/settings_button.dart';
 import 'package:apod/providers/today_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,13 +37,14 @@ class _ImageOfTheDayState extends ConsumerState<ImageOfTheDay>
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Stack(
+    return const Material(
+      child: Stack(
         fit: StackFit.expand,
         children: [
           BackgroundLogoImage(),
           MenuSection(),
           AppTitle(),
+          SettingsButton(),
         ],
       ),
     );

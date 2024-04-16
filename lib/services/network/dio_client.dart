@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:apod/constants/env_variable.dart';
 import 'package:apod/models/api_response.dart';
+import 'package:apod/services/network/api_exception.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -50,10 +51,8 @@ class DioClient {
       },
     );
 
-  static Future<ApiResponse> apiCall({
-    Map<String, dynamic>? queryParameters,
-    CancelToken? cancelToken,
-  }) async {
+  static Future<ApiResponse> apiCall(
+      {Map<String, dynamic>? queryParameters, CancelToken? cancelToken}) async {
     try {
       final response = await dioClient._dio.request(
         '',
@@ -73,27 +72,27 @@ class DioClient {
 
       return ApiResponse.success(response.data);
     } on DioException catch (e) {
-      debugPrint('++++++++++ EXCEPTION ++++++++++');
+      debugPrint('++++++++++ DIO EXCEPTION ++++++++++');
 
-      final err = e.response?.data is String
-          ? e.response?.data
-          : e.response?.data['errorMessage'];
+      final String err = ApiException.fromDioError(e);
 
       debugPrint(err);
 
-      if (err != null) {
-        log('Error: $err');
-      }
+      // if (e.response?.data['code'] != null) {
+      //   err = e.response?.data['code'];
+      //   debugPrint(handleStatusCode(err));
+      // } else {
+      //   err = e.message!;
+      //   debugPrint(err);
+      // }
 
-      return ApiResponse.error(e.message ?? 'Something went wrong');
+      return ApiResponse.error(err);
     } on SocketException {
       return ApiResponse.error(
         'No internet connection',
       );
     } on Exception catch (e) {
-      return ApiResponse.error(
-        e.toString(),
-      );
+      return ApiResponse.error(e.toString());
     }
   }
 }

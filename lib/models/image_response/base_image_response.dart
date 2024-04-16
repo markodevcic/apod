@@ -5,7 +5,7 @@ class BaseImageResponse {
 
   BaseImageResponse({required this.imageList});
 
-  factory BaseImageResponse.fromMap(List<Map<String, dynamic>> data) {
+  factory BaseImageResponse.fromMap(List data) {
     return BaseImageResponse(
       imageList: data.map((e) => ImageResponse.fromMap(e)).toList(),
     );

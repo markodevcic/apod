@@ -14,7 +14,8 @@ class HorizontalImageListView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: EdgeInsets.only(
-          top: 16, bottom: MediaQuery.of(context).padding.bottom + 16),
+          top: MediaQuery.of(context).padding.top + 8,
+          bottom: MediaQuery.of(context).padding.bottom + 16),
       child: SnappingPageScroll.builder(
         controller: PageController(viewportFraction: 0.9),
         itemCount: images.length,

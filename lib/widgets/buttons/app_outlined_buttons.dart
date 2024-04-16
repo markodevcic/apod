@@ -1,7 +1,8 @@
+import 'package:apod/providers/app_color_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:apod/constants/app_color.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AppOutlinedButton extends StatefulWidget {
+class AppOutlinedButton extends ConsumerStatefulWidget {
   const AppOutlinedButton({
     super.key,
     this.title,
@@ -23,10 +24,10 @@ class AppOutlinedButton extends StatefulWidget {
   final Function? onPressed;
 
   @override
-  State<AppOutlinedButton> createState() => _AppOutlinedButtonState();
+  ConsumerState<AppOutlinedButton> createState() => _AppOutlinedButtonState();
 }
 
-class _AppOutlinedButtonState extends State<AppOutlinedButton> {
+class _AppOutlinedButtonState extends ConsumerState<AppOutlinedButton> {
   bool isLoading = false;
 
   @override
@@ -37,8 +38,7 @@ class _AppOutlinedButtonState extends State<AppOutlinedButton> {
         borderRadius: BorderRadius.circular(32),
       ),
       minWidth: 16,
-      textColor: AppColor.stellarViolet,
-      color: widget.color ?? AppColor.galacticPurple.withOpacity(0.6),
+      color: widget.color ?? ref.watch(appColorProvider).withOpacity(0.6),
       onPressed: isLoading || widget.onPressed == null
           ? null
           : () async {
@@ -55,7 +55,7 @@ class _AppOutlinedButtonState extends State<AppOutlinedButton> {
               ? Text(widget.title!)
               : Icon(
                   widget.icon,
-                  color: AppColor.stellarViolet,
+                  // color: AppColor.stellarViolet,
                   size: 20,
                 ),
         ),

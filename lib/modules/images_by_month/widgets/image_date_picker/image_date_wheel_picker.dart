@@ -128,14 +128,10 @@ class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
                             title: 'Cancel',
                           ),
                           AppOutlinedButton(
-                            onPressed: () async {
+                            onPressed: () {
                               context.pop();
-                              final success = await ref
-                                  .refresh(getImagesByMonthProvider.future);
-
-                              if (success) {
-                                pageStorageKey.updateKeys();
-                              }
+                              ref.invalidate(imagesByMonthProvider);
+                              pageStorageKey.updateKeys();
                             },
                             title: 'Get Pictures',
                           ),
