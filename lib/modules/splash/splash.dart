@@ -1,17 +1,17 @@
-import 'package:apod/constants/app_color.dart';
-import 'package:apod/modules/image_of_the_day/image_of_the_day.dart';
-import 'package:apod/utilities/extensions.dart';
+import 'package:apod/utilities/constants/app_color.dart';
+import 'package:apod/modules/home/view/home_page.dart';
+import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({super.key});
+class SplashPage extends StatefulWidget {
+  const SplashPage({super.key});
 
   @override
-  State<Splash> createState() => _SplashState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashPageState extends State<SplashPage> {
   bool showImage = false;
 
   @override
@@ -45,54 +45,59 @@ class _SplashState extends State<Splash> {
                         ),
                       ),
                     ),
-                    Hero(
-                      tag: 'title',
-                      child: Material(
-                        color: Colors.transparent,
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.1,
-                              left: 80,
-                              right: 80,
-                            ),
-                            child: Animate(
-                              // delay: 500.ms,
-                              onComplete: (_) {
-                                context.pushReplacement(
-                                  const ImageOfTheDay(),
-                                  transitionDuration:
-                                      const Duration(seconds: 1),
-                                );
-                              },
-                              effects: [
-                                FadeEffect(
-                                  begin: 0,
-                                  end: 1,
-                                  duration: 500.ms,
-                                ),
-                                BlurEffect(
-                                  curve: Curves.easeInOut,
-                                  delay: 500.ms,
-                                  begin: const Offset(10, 10),
-                                  end: const Offset(0, 0),
-                                  duration: 1000.ms,
-                                )
-                              ],
-                              child: Text(
-                                'Astronomy Picture of the Day',
-                                textAlign: TextAlign.center,
-                                style:
-                                    context.textTheme.headlineSmall!.copyWith(
-                                  color: AppColor.lunarWhite.withOpacity(0.7),
+                    OrientationBuilder(builder: (context, orientation) {
+                      return Hero(
+                        tag: 'title',
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Align(
+                            alignment: orientation == Orientation.portrait
+                                ? Alignment.topCenter
+                                : Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.1,
+                                left: 80,
+                                right: orientation == Orientation.portrait
+                                    ? 80
+                                    : MediaQuery.of(context).size.width * 0.7,
+                              ),
+                              child: Animate(
+                                onComplete: (_) {
+                                  context.pushReplacement(
+                                    const HomePage(),
+                                    transitionDuration:
+                                        const Duration(seconds: 1),
+                                  );
+                                },
+                                effects: [
+                                  FadeEffect(
+                                    begin: 0,
+                                    end: 1,
+                                    duration: 500.ms,
+                                  ),
+                                  BlurEffect(
+                                    curve: Curves.easeInOut,
+                                    delay: 500.ms,
+                                    begin: const Offset(10, 10),
+                                    end: const Offset(0, 0),
+                                    duration: 1000.ms,
+                                  )
+                                ],
+                                child: Text(
+                                  'Astronomy Picture of the Day',
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      context.textTheme.headlineSmall!.copyWith(
+                                    color: AppColor.lunarWhite.withOpacity(0.7),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
                   ],
                 )
               : const SizedBox.shrink()),

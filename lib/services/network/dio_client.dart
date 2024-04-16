@@ -3,9 +3,9 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:apod/constants/env_variable.dart';
-import 'package:apod/models/api_response.dart';
-import 'package:apod/services/network/api_exception.dart';
+import 'package:apod/utilities/constants/env_variable.dart';
+import 'package:apod/services/network/utils/api_response.dart';
+import 'package:apod/services/network/utils/api_exception.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
