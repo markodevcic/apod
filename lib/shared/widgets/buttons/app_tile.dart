@@ -1,7 +1,9 @@
+import 'package:apod/shared/providers/app_color_provider.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AppTile extends StatelessWidget {
+class AppTile extends ConsumerWidget {
   const AppTile({
     super.key,
     required this.title,
@@ -26,7 +28,7 @@ class AppTile extends StatelessWidget {
   final void Function()? onTap;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 2),
       width: double.infinity,
@@ -34,8 +36,8 @@ class AppTile extends StatelessWidget {
         gradient: color != null
             ? LinearGradient(
                 colors: [
-                  color!,
                   color!.withOpacity(0.5),
+                  color!,
                 ],
                 begin: Alignment.bottomRight,
                 end: Alignment.topLeft,
@@ -46,7 +48,7 @@ class AppTile extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(8),
-        highlightColor: Colors.white54,
+        highlightColor: ref.watch(appColorProvider),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Row(

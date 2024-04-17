@@ -1,3 +1,4 @@
+import 'package:apod/services/storage/shared_prefs.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum PageListViewDirection { vertical, horizontal }
@@ -8,7 +9,14 @@ final pageListViewDirectionProvider =
 
 class PageListViewDirectionNotifier
     extends StateNotifier<PageListViewDirection> {
-  PageListViewDirectionNotifier() : super(PageListViewDirection.vertical);
+  PageListViewDirectionNotifier()
+      : super(PageListViewDirection.values
+            .byName(SharedPrefs.loadListViewDirection()));
+
+  void saveDirection(PageListViewDirection direction) {
+    SharedPrefs.saveListViewDirection(direction.name);
+    state = direction;
+  }
 
   void setVertical() {
     state = PageListViewDirection.vertical;

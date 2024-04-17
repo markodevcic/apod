@@ -1,5 +1,6 @@
 import 'package:apod/shared/providers/app_color_provider.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
+import 'package:apod/utilities/extensions/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -53,10 +54,20 @@ class _AppOutlinedButtonState extends ConsumerState<AppOutlinedButton> {
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 120),
           child: widget.title != null
-              ? Text(widget.title!, style: context.textTheme.bodySmall)
+              ? Text(
+                  widget.title!,
+                  style: context.textTheme.bodySmall!.copyWith(
+                    color: ref.watch(appColorProvider).isLightColor
+                        ? Colors.black
+                        : Colors.white,
+                  ),
+                )
               : Icon(
                   widget.icon,
                   size: 20,
+                  color: ref.watch(appColorProvider).isLightColor
+                      ? Colors.black
+                      : Colors.white,
                 ),
         ),
       ),

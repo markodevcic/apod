@@ -2,6 +2,7 @@ import 'package:apod/modules/image_list/images_by_month/providers/images_by_mont
 import 'package:apod/modules/image_list/images_by_month/providers/images_date_provider.dart';
 import 'package:apod/modules/image_list/images_by_month/view/widgets/utils/wheel_picker_helper.dart';
 import 'package:apod/modules/image_list/shared/providers/page_storage_key_provider.dart';
+import 'package:apod/shared/providers/app_color_provider.dart';
 import 'package:apod/shared/widgets/buttons/app_outlined_buttons.dart';
 import 'package:apod/utilities/constants/app_color.dart';
 import 'package:apod/utilities/constants/initial_date.dart';
@@ -76,74 +77,80 @@ class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
             builder: (builderContext) {
               return Center(
                 child: Material(
-                  color: AppColor.cosmicBlue.withOpacity(0.9),
+                  color: Colors.black87,
                   borderRadius: const BorderRadius.all(Radius.circular(32)),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(32)),
-                    ),
-                    padding: const EdgeInsets.only(
-                      left: 8,
-                      right: 8,
-                      top: 32,
-                    ),
-                    width: 280,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          height: 80,
-                          child: CupertinoTheme(
-                            data: CupertinoThemeData(
-                              textTheme: CupertinoTextThemeData(
-                                dateTimePickerTextStyle:
-                                    context.textTheme.titleMedium,
+                  child: Material(
+                    color: ref.read(appColorProvider).withOpacity(0.3),
+                    borderRadius: const BorderRadius.all(Radius.circular(32)),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(32)),
+                      ),
+                      padding: const EdgeInsets.only(
+                        left: 8,
+                        right: 8,
+                        top: 32,
+                      ),
+                      width: 280,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            height: 80,
+                            child: CupertinoTheme(
+                              data: CupertinoThemeData(
+                                textTheme: CupertinoTextThemeData(
+                                  dateTimePickerTextStyle:
+                                      context.textTheme.titleMedium,
+                                ),
+                              ),
+                              child: CupertinoDatePicker(
+                                mode: CupertinoDatePickerMode.monthYear,
+                                maximumYear: DateTime.now().year,
+                                minimumYear: initialDate.year,
+                                initialDateTime:
+                                    DateTime(widget.year, widget.month),
+                                maximumDate: DateTime.now(),
+                                minimumDate: DateTime(
+                                    initialDate.year, initialDate.month),
+                                backgroundColor: Colors.transparent,
+                                itemExtent: 30,
+                                onDateTimeChanged: (datetime) {
+                                  ref
+                                      .read(imagesDateProvider.notifier)
+                                      .setMonth(
+                                        year: datetime.year,
+                                        month: datetime.month,
+                                      );
+                                },
                               ),
                             ),
-                            child: CupertinoDatePicker(
-                              mode: CupertinoDatePickerMode.monthYear,
-                              maximumYear: DateTime.now().year,
-                              minimumYear: initialDate.year,
-                              initialDateTime:
-                                  DateTime(widget.year, widget.month),
-                              maximumDate: DateTime.now(),
-                              minimumDate:
-                                  DateTime(initialDate.year, initialDate.month),
-                              backgroundColor: Colors.transparent,
-                              itemExtent: 30,
-                              onDateTimeChanged: (datetime) {
-                                ref.read(imagesDateProvider.notifier).setMonth(
-                                      year: datetime.year,
-                                      month: datetime.month,
-                                    );
-                              },
-                            ),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AppOutlinedButton(
-                              onPressed: () {
-                                context.pop();
-                                months =
-                                    WheelPickerHelper.monthsInYear(widget.year);
-                                years = WheelPickerHelper.yearsAfter1995();
-                              },
-                              title: 'Cancel',
-                            ),
-                            AppOutlinedButton(
-                              onPressed: () {
-                                context.pop();
-                                ref.invalidate(imagesByMonthProvider);
-                                pageStorageKey.updateKeys();
-                              },
-                              title: 'Get Pictures',
-                            ),
-                          ],
-                        ),
-                      ],
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppOutlinedButton(
+                                onPressed: () {
+                                  context.pop();
+                                  months = WheelPickerHelper.monthsInYear(
+                                      widget.year);
+                                  years = WheelPickerHelper.yearsAfter1995();
+                                },
+                                title: 'Cancel',
+                              ),
+                              AppOutlinedButton(
+                                onPressed: () {
+                                  context.pop();
+                                  ref.invalidate(imagesByMonthProvider);
+                                  pageStorageKey.updateKeys();
+                                },
+                                title: 'Get Pictures',
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

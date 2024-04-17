@@ -1,6 +1,7 @@
-import 'package:apod/utilities/constants/app_color.dart';
 import 'package:apod/modules/splash/splash.dart';
+import 'package:apod/services/storage/shared_prefs.dart';
 import 'package:apod/shared/providers/app_color_provider.dart';
+import 'package:apod/utilities/constants/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
   await dotenv.load();
+  await SharedPrefs.initializePrefs();
 
   runApp(
     const ProviderScope(
