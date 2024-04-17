@@ -36,41 +36,37 @@ class MyApp extends ConsumerWidget {
         splashFactory: NoSplash.splashFactory,
         highlightColor: AppColor.lunarWhite.withOpacity(0.2),
         useMaterial3: true,
-        textTheme: TextTheme(
+        fontFamily: GoogleFonts.interTight().fontFamily,
+        textTheme: const TextTheme(
           headlineSmall: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            fontFamily: GoogleFonts.gruppo().fontFamily,
           ),
           titleMedium: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            fontFamily: GoogleFonts.gruppo().fontFamily,
           ),
           titleSmall: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.normal,
-            fontFamily: GoogleFonts.gruppo().fontFamily,
           ),
           bodyMedium: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.normal,
-            fontFamily: GoogleFonts.gruppo().fontFamily,
             height: 1.5,
           ),
           bodySmall: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.normal,
-            fontFamily: GoogleFonts.gruppo().fontFamily,
+            color: Colors.white70,
             height: 1.5,
           ),
         ),
         scaffoldBackgroundColor: AppColor.deepSpaceBlack,
         appBarTheme: AppBarTheme(
-          titleTextStyle: TextStyle(
+          titleTextStyle: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            fontFamily: GoogleFonts.gruppo().fontFamily,
           ),
           elevation: 0,
           backgroundColor: ref.watch(appColorProvider).withOpacity(0.6),

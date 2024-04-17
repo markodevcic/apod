@@ -53,29 +53,29 @@ class LayoutBoxPart extends StatelessWidget {
                   alignment == LayoutAlignment.start
               ? BorderSide.none
               : const BorderSide(
-                  color: AppColor.darkMatterGray,
-                  width: 2,
+                  color: AppColor.lunarWhite,
+                  width: 1,
                 ),
           bottom: direction == LayoutDirection.horizontal &&
                   alignment == LayoutAlignment.end
               ? BorderSide.none
               : const BorderSide(
-                  color: AppColor.darkMatterGray,
-                  width: 2,
+                  color: AppColor.lunarWhite,
+                  width: 1,
                 ),
           right: direction == LayoutDirection.vertical &&
                   alignment == LayoutAlignment.end
               ? BorderSide.none
               : const BorderSide(
-                  color: AppColor.darkMatterGray,
-                  width: 2,
+                  color: AppColor.lunarWhite,
+                  width: 1,
                 ),
           left: direction == LayoutDirection.vertical &&
                   alignment == LayoutAlignment.start
               ? BorderSide.none
               : const BorderSide(
-                  color: AppColor.darkMatterGray,
-                  width: 2,
+                  color: AppColor.lunarWhite,
+                  width: 1,
                 ),
         ),
         borderRadius: BorderRadius.circular(8),

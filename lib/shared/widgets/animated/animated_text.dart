@@ -1,8 +1,7 @@
-import 'package:apod/utilities/constants/app_color.dart';
 import 'package:apod/shared/models/image_response.dart';
+import 'package:apod/shared/widgets/media/video_webview.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:apod/utilities/extensions/string_extensions.dart';
-import 'package:apod/shared/widgets/media/video_webview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -21,9 +20,7 @@ class AnimatedText extends StatelessWidget {
         children: [
           Text(
             image.explanation!,
-            style: context.textTheme.bodyMedium!.copyWith(
-              color: AppColor.lunarWhite,
-            ),
+            style: context.textTheme.bodySmall,
           ),
           if (image.mediaType == 'video')
             Padding(

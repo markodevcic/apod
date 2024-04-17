@@ -11,12 +11,14 @@ class AppOutlinedButton extends ConsumerStatefulWidget {
     this.icon,
     this.color,
     this.onPressed,
+    this.useMaxContrast = true,
   });
 
   const AppOutlinedButton.back({
     super.key,
     this.onPressed,
     this.color,
+    this.useMaxContrast = true,
   })  : title = null,
         icon = Icons.arrow_back_ios_new_outlined;
 
@@ -24,6 +26,7 @@ class AppOutlinedButton extends ConsumerStatefulWidget {
   final IconData? icon;
   final Color? color;
   final Function? onPressed;
+  final bool useMaxContrast;
 
   @override
   ConsumerState<AppOutlinedButton> createState() => _AppOutlinedButtonState();
@@ -57,16 +60,14 @@ class _AppOutlinedButtonState extends ConsumerState<AppOutlinedButton> {
               ? Text(
                   widget.title!,
                   style: context.textTheme.bodySmall!.copyWith(
-                    color: ref.watch(appColorProvider).isLightColor
-                        ? Colors.black
-                        : Colors.white,
+                    color: ref.watch(appColorProvider).maxContrast(),
                   ),
                 )
               : Icon(
                   widget.icon,
                   size: 20,
-                  color: ref.watch(appColorProvider).isLightColor
-                      ? Colors.black
+                  color: widget.useMaxContrast
+                      ? ref.watch(appColorProvider).maxContrast()
                       : Colors.white,
                 ),
         ),

@@ -1,5 +1,5 @@
-import 'package:apod/utilities/constants/app_color.dart';
 import 'package:apod/modules/home/view/home_page.dart';
+import 'package:apod/utilities/constants/app_color.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -57,9 +57,9 @@ class _SplashPageState extends State<SplashPage> {
                             child: Padding(
                               padding: EdgeInsets.only(
                                 top: MediaQuery.of(context).size.height * 0.1,
-                                left: 80,
+                                left: 96,
                                 right: orientation == Orientation.portrait
-                                    ? 80
+                                    ? 96
                                     : MediaQuery.of(context).size.width * 0.7,
                               ),
                               child: Animate(
@@ -88,7 +88,7 @@ class _SplashPageState extends State<SplashPage> {
                                   'Astronomy Picture of the Day',
                                   textAlign: TextAlign.center,
                                   style:
-                                      context.textTheme.headlineSmall!.copyWith(
+                                      context.textTheme.titleMedium!.copyWith(
                                     color: AppColor.lunarWhite.withOpacity(0.7),
                                   ),
                                 ),

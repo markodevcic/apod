@@ -26,7 +26,7 @@ class AnimatedTitle extends StatelessWidget {
               Text(
                 '$char ',
                 style: style ??
-                    context.textTheme.titleMedium!.copyWith(
+                    context.textTheme.titleSmall!.copyWith(
                       color: AppColor.lunarWhite,
                     ),
               ),

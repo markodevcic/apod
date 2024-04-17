@@ -65,13 +65,14 @@ class _ColorSettingsState extends ConsumerState<ColorSettings> {
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Center(
-                          child: Text(color.title,
-                              style: context.textTheme.titleSmall!.copyWith(
-                                color: color.color.isLightColor
-                                    ? Colors.black
-                                    : Colors.white,
-                              )),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            color.title,
+                            style: context.textTheme.titleSmall!.copyWith(
+                              color: color.color.maxContrast(),
+                            ),
+                          ),
                         ),
                       ))
                   .toList(),

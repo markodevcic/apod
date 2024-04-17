@@ -46,8 +46,7 @@ class PageWrapper extends ConsumerWidget {
           children: [
             Align(
               alignment: Alignment.topLeft,
-              child: AppOutlinedButton(
-                icon: Icons.arrow_back_ios_rounded,
+              child: AppOutlinedButton.back(
                 onPressed: () {
                   ref.read(todayImageProvider.notifier).get();
                   context.pop();
@@ -58,9 +57,7 @@ class PageWrapper extends ConsumerWidget {
               Center(
                 child: Text(title!,
                     style: context.textTheme.headlineSmall!.copyWith(
-                      color: ref.watch(appColorProvider).isLightColor
-                          ? Colors.black
-                          : Colors.white,
+                      color: ref.watch(appColorProvider).maxContrast(),
                     )),
               ),
             if (actionWidget != null)

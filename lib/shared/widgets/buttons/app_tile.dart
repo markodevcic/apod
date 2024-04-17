@@ -55,7 +55,7 @@ class AppTile extends ConsumerWidget {
             children: [
               Text(
                 title,
-                style: context.textTheme.titleMedium,
+                style: context.textTheme.titleSmall,
               ),
               const Spacer(),
               if (trailing != null) trailing!,

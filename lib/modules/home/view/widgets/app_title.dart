@@ -27,15 +27,15 @@ class AppTitle extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.1,
-                left: 80,
+                left: 96,
                 right: orientation == Orientation.portrait
-                    ? 80
+                    ? 96
                     : MediaQuery.of(context).size.width * 0.7,
               ),
               child: Text(
                 'Astronomy Picture of the Day',
                 textAlign: TextAlign.center,
-                style: context.textTheme.headlineSmall!.copyWith(
+                style: context.textTheme.titleMedium!.copyWith(
                   color: AppColor.lunarWhite.withOpacity(0.7),
                 ),
               ),

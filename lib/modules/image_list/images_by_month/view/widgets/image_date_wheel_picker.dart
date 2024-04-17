@@ -101,7 +101,7 @@ class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
                               data: CupertinoThemeData(
                                 textTheme: CupertinoTextThemeData(
                                   dateTimePickerTextStyle:
-                                      context.textTheme.titleMedium,
+                                      context.textTheme.bodySmall,
                                 ),
                               ),
                               child: CupertinoDatePicker(
