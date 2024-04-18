@@ -85,15 +85,17 @@ class _AppOutlinedButtonState extends ConsumerState<AppOutlinedButton> {
               ? Text(
                   widget.title!,
                   style: context.textTheme.bodySmall!.copyWith(
-                    color: ref.watch(appColorProvider).maxContrast(),
+                    color: widget.useMaxContrast
+                        ? ref.watch(appColorProvider).maxContrast()
+                        : null,
                   ),
                 )
               : Icon(
                   widget.icon,
                   size: 20,
-                  color: widget.useMaxContrast
+                  color: widget.disabledWhen
                       ? ref.watch(appColorProvider).maxContrast()
-                      : Colors.white,
+                      : null,
                 ),
         ),
       ),

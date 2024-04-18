@@ -1,7 +1,7 @@
 import 'package:apod/shared/models/image_response.dart';
-import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:apod/shared/widgets/buttons/app_outlined_buttons.dart';
 import 'package:apod/shared/widgets/notifications/toast.dart';
+import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';

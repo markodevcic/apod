@@ -1,3 +1,4 @@
+import 'package:apod/modules/settings/view/widgets/clear_image_cache.dart';
 import 'package:apod/modules/settings/view/widgets/color_settings.dart';
 import 'package:apod/modules/settings/view/widgets/list_layout_settings.dart';
 import 'package:apod/shared/widgets/wrappers/page_wrapper.dart';
@@ -18,6 +19,7 @@ class SettingsPage extends StatelessWidget {
           children: [
             ColorSettings(),
             ListLayoutSettings(),
+            ClearImageCache(),
           ],
         ),
       ),
