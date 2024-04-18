@@ -2,6 +2,7 @@ import 'package:apod/modules/splash/splash.dart';
 import 'package:apod/services/storage/shared_prefs.dart';
 import 'package:apod/shared/providers/app_color_provider.dart';
 import 'package:apod/utilities/constants/app_color.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -31,6 +32,8 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Astronomy Picture of the Day',
+      builder: BotToastInit(),
+      navigatorObservers: [BotToastNavigatorObserver()],
       theme: ThemeData(
         colorScheme: const ColorScheme.dark(),
         splashFactory: NoSplash.splashFactory,

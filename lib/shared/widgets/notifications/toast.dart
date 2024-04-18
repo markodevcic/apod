@@ -1,36 +1,29 @@
-import 'package:apod/utilities/constants/app_color.dart';
-import 'package:apod/utilities/extensions/build_context_extensions.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-void showToast(BuildContext context, String message) {
-  final fToast = FToast();
-  fToast.init(context);
+enum ToastType { success, error, neutral }
 
-  fToast.removeQueuedCustomToasts();
+void showToastMessage(
+    {required String message, ToastType? type = ToastType.success}) {
+  Color color;
 
-  fToast.showToast(
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: AppColor.galacticPurple,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Text(
-        message,
-        style: context.textTheme.labelMedium!.copyWith(
-          color: AppColor.lunarWhite,
-        ),
-      ),
-    ),
-    toastDuration: const Duration(seconds: 5),
-    positionedToastBuilder: (context, child) {
-      return Positioned(
-        top: MediaQuery.of(context).padding.top + 16,
-        left: 16,
-        right: 16,
-        child: child,
-      );
-    },
+  switch (type) {
+    case ToastType.success:
+      color = Colors.green.shade800;
+      break;
+    case ToastType.error:
+      color = Colors.red.shade800;
+      break;
+    case ToastType.neutral:
+      color = Colors.blue.shade800;
+      break;
+    default:
+      color = Colors.blue.shade800;
+  }
+
+  BotToast.showNotification(
+    title: (_) => Text(message),
+    duration: const Duration(seconds: 5),
+    backgroundColor: color,
   );
 }

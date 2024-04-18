@@ -52,7 +52,7 @@ class ImagePreviewPage extends StatelessWidget {
                         );
 
                         if (result.status == ShareResultStatus.success) {
-                          showToast(context, 'Share successful');
+                          showToastMessage(message: 'Share successful');
                         }
                       });
                     });
