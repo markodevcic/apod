@@ -11,8 +11,8 @@ class ImagesDateNotifier extends StateNotifier<DateTime> {
 
   Ref ref;
 
-  void setMonth({required int year, required int month}) {
-    state = state.copyWith(year: year, month: month);
+  void setMonth(DateTime date) {
+    state = state.copyWith(year: date.year, month: date.month);
   }
 
   void incrementOneMonth() {

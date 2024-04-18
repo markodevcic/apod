@@ -1,6 +1,5 @@
 import 'package:apod/modules/image_list/images_by_month/providers/images_by_month_provider.dart';
 import 'package:apod/modules/image_list/images_by_month/providers/images_date_provider.dart';
-import 'package:apod/modules/image_list/images_by_month/view/widgets/utils/wheel_picker_helper.dart';
 import 'package:apod/modules/image_list/shared/providers/page_storage_key_provider.dart';
 import 'package:apod/shared/providers/app_color_provider.dart';
 import 'package:apod/shared/widgets/buttons/app_outlined_buttons.dart';
@@ -24,51 +23,18 @@ class ImageDateWheelPicker extends ConsumerStatefulWidget {
 }
 
 class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
-  late FixedExtentScrollController monthScrollController;
-  late FixedExtentScrollController yearScrollController;
-
-  late List<int> months = WheelPickerHelper.monthsInYear(widget.year);
-  late List<int> years = WheelPickerHelper.yearsAfter1995();
-
-  @override
-  void initState() {
-    super.initState();
-    monthScrollController = FixedExtentScrollController(
-      initialItem:
-          WheelPickerHelper.monthsInYear(widget.year).indexOf(widget.month),
-    );
-    yearScrollController = FixedExtentScrollController(
-      initialItem: WheelPickerHelper.yearsAfter1995().indexOf(widget.year),
-    );
-  }
-
-  @override
-  void didUpdateWidget(covariant ImageDateWheelPicker oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    monthScrollController = FixedExtentScrollController(
-      initialItem:
-          WheelPickerHelper.monthsInYear(widget.year).indexOf(widget.month),
-    );
-    yearScrollController = FixedExtentScrollController(
-      initialItem: WheelPickerHelper.yearsAfter1995().indexOf(widget.year),
-    );
-  }
-
-  @override
-  void dispose() {
-    monthScrollController.dispose();
-    yearScrollController.dispose();
-    super.dispose();
-  }
+  late DateTime selectedDate = DateTime(widget.year, widget.month);
 
   @override
   Widget build(BuildContext context) {
-    final selectedDate = ref.watch(imagesDateProvider);
+    final imagesDate = ref.read(imagesDateProvider.notifier);
     final pageStorageKey = ref.read(pageStorageKeyProvider);
 
     return SizedBox(
       width: 160,
       child: AppOutlinedButton(
+        title: DateTime(widget.year, widget.month).stringify(),
+        buttonShape: ButtonShape.square,
         onPressed: () {
           showDialog(
             context: context,
@@ -101,7 +67,7 @@ class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
                               data: CupertinoThemeData(
                                 textTheme: CupertinoTextThemeData(
                                   dateTimePickerTextStyle:
-                                      context.textTheme.bodySmall,
+                                      context.textTheme.bodyMedium,
                                 ),
                               ),
                               child: CupertinoDatePicker(
@@ -116,12 +82,7 @@ class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
                                 backgroundColor: Colors.transparent,
                                 itemExtent: 30,
                                 onDateTimeChanged: (datetime) {
-                                  ref
-                                      .read(imagesDateProvider.notifier)
-                                      .setMonth(
-                                        year: datetime.year,
-                                        month: datetime.month,
-                                      );
+                                  setState(() => selectedDate = datetime);
                                 },
                               ),
                             ),
@@ -131,21 +92,19 @@ class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               AppOutlinedButton(
+                                title: 'Cancel',
                                 onPressed: () {
                                   context.pop();
-                                  months = WheelPickerHelper.monthsInYear(
-                                      widget.year);
-                                  years = WheelPickerHelper.yearsAfter1995();
                                 },
-                                title: 'Cancel',
                               ),
                               AppOutlinedButton(
+                                title: 'Get Pictures',
                                 onPressed: () {
                                   context.pop();
+                                  imagesDate.setMonth(selectedDate);
                                   ref.invalidate(imagesByMonthProvider);
                                   pageStorageKey.updateKeys();
                                 },
-                                title: 'Get Pictures',
                               ),
                             ],
                           ),
@@ -158,7 +117,6 @@ class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
             },
           );
         },
-        title: selectedDate.stringify(),
       ),
     );
   }

@@ -32,4 +32,10 @@ extension DateExtension on DateTime {
 
     return formattedDate;
   }
+
+  bool isCurrentMonth([DateTime? datetime]) {
+    final DateTime date = datetime ?? DateTime.now().toLocal();
+
+    return month == date.month && year == date.year;
+  }
 }
