@@ -1,6 +1,6 @@
+import 'package:apod/services/network/dio_client.dart';
 import 'package:apod/shared/models/base_image_response.dart';
 import 'package:apod/shared/models/image_response.dart';
-import 'package:apod/services/network/dio_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final getRandomImagesProvider = FutureProvider<List<ImageResponse>?>(
@@ -11,14 +11,17 @@ final getRandomImagesProvider = FutureProvider<List<ImageResponse>?>(
 
 final randomImagesProvider =
     StateNotifierProvider<RandomImagesNotifier, List<ImageResponse>?>(
-  (ref) => RandomImagesNotifier(),
+  (ref) => RandomImagesNotifier(ref),
 );
 
 class RandomImagesNotifier extends StateNotifier<List<ImageResponse>?> {
-  RandomImagesNotifier() : super(null);
+  RandomImagesNotifier(this.ref) : super(null);
+
+  Ref ref;
 
   Future<List<ImageResponse>?> get() async {
-    final response = await DioClient.apiCall(
+    final dio = ref.read(dioClientProvider);
+    final response = await dio.apiCall(
       queryParameters: {
         'count': 30,
       },

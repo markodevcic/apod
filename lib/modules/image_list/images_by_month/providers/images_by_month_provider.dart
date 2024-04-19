@@ -1,8 +1,8 @@
+import 'package:apod/modules/image_list/images_by_month/providers/images_date_provider.dart';
+import 'package:apod/modules/image_list/images_by_month/utils/images_by_month_provider_helper.dart';
+import 'package:apod/services/network/dio_client.dart';
 import 'package:apod/shared/models/base_image_response.dart';
 import 'package:apod/shared/models/image_response.dart';
-import 'package:apod/modules/image_list/images_by_month/utils/images_by_month_provider_helper.dart';
-import 'package:apod/modules/image_list/images_by_month/providers/images_date_provider.dart';
-import 'package:apod/services/network/dio_client.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,7 +32,8 @@ class ImagesByMonthNotifier extends StateNotifier<List<ImageResponse>?> {
     cancelToken.cancel();
     cancelToken = CancelToken();
 
-    final response = await DioClient.apiCall(
+    final dio = ref.read(dioClientProvider);
+    final response = await dio.apiCall(
       queryParameters: {
         'start_date': startDate,
         'end_date': endDate,

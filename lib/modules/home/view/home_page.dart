@@ -24,7 +24,7 @@ class _ImageOfTheDayState extends ConsumerState<HomePage>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      ref.invalidate(todayImageProvider);
+      ref.read(getTodayImageProvider);
     }
   }
 

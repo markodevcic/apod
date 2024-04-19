@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:apod/modules/home/providers/today_image_provider.dart';
-import 'package:apod/modules/image_list/shared/providers/page_list_view_provider.dart';
 import 'package:apod/shared/providers/app_color_provider.dart';
 import 'package:apod/shared/widgets/buttons/app_outlined_buttons.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
@@ -17,23 +16,13 @@ class PageWrapper extends ConsumerWidget {
     this.actionWidget,
     this.floatingActionWidget,
     this.extendBodyBehindAppBar = false,
-  }) : hasFloatingButtons = true;
-
-  const PageWrapper.noButtons({
-    super.key,
-    required this.body,
-    this.title,
-    this.actionWidget,
-    this.floatingActionWidget,
-    this.extendBodyBehindAppBar = false,
-  }) : hasFloatingButtons = false;
+  });
 
   final Widget body;
   final String? title;
   final Widget? actionWidget;
   final Widget? floatingActionWidget;
   final bool extendBodyBehindAppBar;
-  final bool hasFloatingButtons;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -80,30 +69,6 @@ class PageWrapper extends ConsumerWidget {
         duration: const Duration(milliseconds: 300),
         child: body,
       ),
-      floatingActionButton: hasFloatingButtons
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                AppOutlinedButton(
-                  onPressed: () {
-                    ref
-                        .read(pageListViewDirectionProvider.notifier)
-                        .setVertical();
-                  },
-                  icon: Icons.view_stream_rounded,
-                ),
-                const SizedBox(width: 8),
-                AppOutlinedButton(
-                  onPressed: () {
-                    ref
-                        .read(pageListViewDirectionProvider.notifier)
-                        .setHorizontal();
-                  },
-                  icon: Icons.view_week_rounded,
-                ),
-              ],
-            )
-          : null,
     );
   }
 }

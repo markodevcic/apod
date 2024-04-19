@@ -8,32 +8,32 @@ enum LayoutAlignment { start, center, end }
 class LayoutBoxPart extends StatelessWidget {
   const LayoutBoxPart.verticalStart({super.key})
       : height = 16,
-        width = 80,
+        width = 70,
         direction = LayoutDirection.vertical,
         alignment = LayoutAlignment.start;
   const LayoutBoxPart.verticalCenter({super.key})
-      : height = 40,
-        width = 80,
+      : height = 30,
+        width = 70,
         direction = LayoutDirection.vertical,
         alignment = LayoutAlignment.center;
   const LayoutBoxPart.verticalEnd({super.key})
       : height = 16,
-        width = 80,
+        width = 70,
         direction = LayoutDirection.vertical,
         alignment = LayoutAlignment.end;
   const LayoutBoxPart.horizontalStart({super.key})
-      : height = 80,
-        width = 16,
+      : height = 70,
+        width = 11,
         direction = LayoutDirection.horizontal,
         alignment = LayoutAlignment.start;
   const LayoutBoxPart.horizontalCenter({super.key})
-      : height = 80,
-        width = 60,
+      : height = 70,
+        width = 40,
         direction = LayoutDirection.horizontal,
         alignment = LayoutAlignment.center;
   const LayoutBoxPart.horizontalEnd({super.key})
-      : height = 80,
-        width = 16,
+      : height = 70,
+        width = 11,
         direction = LayoutDirection.horizontal,
         alignment = LayoutAlignment.end;
 

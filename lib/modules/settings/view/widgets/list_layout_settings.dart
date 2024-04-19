@@ -18,7 +18,7 @@ class ListLayoutSettings extends ConsumerWidget {
           const Row(
             children: [
               LayoutBox.horizontal(),
-              SizedBox(width: 16),
+              SizedBox(width: 8),
               LayoutBox.vertical(),
             ],
           )

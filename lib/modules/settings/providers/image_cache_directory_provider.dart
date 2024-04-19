@@ -1,56 +1,82 @@
 import 'dart:io';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 
-final isImageCacheEmptyProvider =
-    StateNotifierProvider.autoDispose<IsImageCacheEmptyNotifier, bool>(
-  (ref) => IsImageCacheEmptyNotifier(ref),
-);
+// final isImageCacheEmptyProvider =
+//     StateNotifierProvider.autoDispose<IsImageCacheEmptyNotifier, bool>(
+//   (ref) => IsImageCacheEmptyNotifier(ref),
+// );
 
-class IsImageCacheEmptyNotifier extends StateNotifier<bool> {
-  IsImageCacheEmptyNotifier(this.ref) : super(true) {
-    init();
-  }
+// class IsImageCacheEmptyNotifier extends StateNotifier<bool> {
+//   IsImageCacheEmptyNotifier(this.ref) : super(true) {
+//     init();
+//   }
 
-  final Ref ref;
+//   final Ref ref;
 
-  void init() async {
-    state = await ref.read(imageCacheDirectoryProvider).init();
-  }
+//   void init() async {
+//     state = await ref.read(imageCacheDirectoryProvider).init();
+//   }
 
-  Future<void> clearImageCache() async {
-    state = await ref.read(imageCacheDirectoryProvider).clearImageCache();
-  }
-}
+//   Future<void> clearImageCache() async {
+//     state = await ref.read(imageCacheDirectoryProvider).clearImageCache();
+//   }
+// }
 
-final imageCacheDirectoryProvider = Provider<ImageCacheDirectoryNotifier>(
+final imageCacheDirectoryProvider =
+    ChangeNotifierProvider.autoDispose<ImageCacheDirectoryNotifier>(
   (ref) => ImageCacheDirectoryNotifier(),
 );
 
-class ImageCacheDirectoryNotifier {
-  Directory? imageCacheDir;
+class ImageCacheDirectoryNotifier extends ChangeNotifier {
+  ImageCacheDirectoryNotifier() {
+    init();
+  }
 
-  Future<bool> init() async {
+  Directory? _cacheDir;
+  double _totalSize = 0;
+  final bool _isCacheEmpty = true;
+
+  Directory? get cacheDir => _cacheDir;
+  double get totalSize => _totalSize;
+  bool get isCacheEmpty => _isCacheEmpty;
+
+  Future<void> init() async {
     final Directory cacheDir = await getTemporaryDirectory();
     final List<FileSystemEntity> listOfFiles = cacheDir.listSync();
 
-    imageCacheDir = listOfFiles.firstWhereOrNull(
+    _cacheDir = listOfFiles.firstWhereOrNull(
         (element) => element.path.contains('libCachedImageData')) as Directory?;
 
-    return isDirectoryEmpty();
+    calculateTotalSize();
+    checkIsDirectoryEmpty();
+
+    notifyListeners();
   }
 
-  bool isDirectoryEmpty() {
-    return imageCacheDir != null ? imageCacheDir!.listSync().isEmpty : true;
+  bool checkIsDirectoryEmpty() {
+    return _cacheDir != null ? _cacheDir!.listSync().isEmpty : true;
   }
 
-  Future<bool> clearImageCache() async {
-    for (var file in imageCacheDir!.listSync()) {
+  void calculateTotalSize() {
+    double size = 0;
+    for (var file in _cacheDir!.listSync()) {
+      size += file.statSync().size;
+    }
+    _totalSize = size;
+  }
+
+  Future<void> clearImageCache() async {
+    for (var file in _cacheDir!.listSync()) {
       file.deleteSync();
     }
 
-    return isDirectoryEmpty();
+    calculateTotalSize();
+    checkIsDirectoryEmpty();
+
+    notifyListeners();
   }
 }

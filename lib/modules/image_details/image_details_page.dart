@@ -1,5 +1,5 @@
 import 'package:apod/modules/image_details/widgets/image_and_title.dart';
-import 'package:apod/modules/image_preview/image_preview_page.dart';
+import 'package:apod/modules/image_preview/view/image_preview_page.dart';
 import 'package:apod/shared/models/image_response.dart';
 import 'package:apod/shared/widgets/animated/animated_text.dart';
 import 'package:apod/shared/widgets/animated/animated_ttitle.dart';

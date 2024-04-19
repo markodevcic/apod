@@ -1,4 +1,5 @@
 import 'package:apod/shared/providers/app_color_provider.dart';
+import 'package:apod/shared/widgets/loaders/loader.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:apod/utilities/extensions/color_extensions.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class AppOutlinedButton extends ConsumerStatefulWidget {
     this.color,
     required this.onPressed,
     this.buttonShape = ButtonShape.rounded,
-    this.disabledWhen = false,
+    this.isDisabled = false,
     this.useMaxContrast = true,
   });
 
@@ -24,7 +25,7 @@ class AppOutlinedButton extends ConsumerStatefulWidget {
     this.color,
     this.buttonShape = ButtonShape.rounded,
     this.useMaxContrast = true,
-    this.disabledWhen = false,
+    this.isDisabled = false,
   })  : title = null,
         icon = Icons.arrow_back_ios_new_outlined;
 
@@ -34,7 +35,7 @@ class AppOutlinedButton extends ConsumerStatefulWidget {
   final Function onPressed;
   final ButtonShape buttonShape;
   final bool useMaxContrast;
-  final bool disabledWhen;
+  final bool isDisabled;
 
   @override
   ConsumerState<AppOutlinedButton> createState() => _AppOutlinedButtonState();
@@ -69,7 +70,7 @@ class _AppOutlinedButtonState extends ConsumerState<AppOutlinedButton> {
       ),
       minWidth: 16,
       color: widget.color ?? ref.watch(appColorProvider).withOpacity(0.6),
-      onPressed: isLoading || widget.disabledWhen
+      onPressed: isLoading || widget.isDisabled
           ? null
           : () async {
               setState(() => isLoading = true);
@@ -81,22 +82,24 @@ class _AppOutlinedButtonState extends ConsumerState<AppOutlinedButton> {
         curve: Curves.easeInOut,
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 120),
-          child: widget.title != null
-              ? Text(
-                  widget.title!,
-                  style: context.textTheme.bodySmall!.copyWith(
-                    color: widget.useMaxContrast
-                        ? ref.watch(appColorProvider).maxContrast()
-                        : null,
-                  ),
-                )
-              : Icon(
-                  widget.icon,
-                  size: 20,
-                  color: widget.disabledWhen
-                      ? ref.watch(appColorProvider).maxContrast()
-                      : null,
-                ),
+          child: isLoading
+              ? const Loader()
+              : widget.title != null
+                  ? Text(
+                      widget.title!,
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        color: widget.useMaxContrast && !widget.isDisabled
+                            ? ref.watch(appColorProvider).maxContrast()
+                            : null,
+                      ),
+                    )
+                  : Icon(
+                      widget.icon,
+                      size: 20,
+                      color: widget.useMaxContrast && !widget.isDisabled
+                          ? ref.watch(appColorProvider).maxContrast()
+                          : null,
+                    ),
         ),
       ),
     );

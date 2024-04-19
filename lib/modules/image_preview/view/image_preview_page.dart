@@ -1,20 +1,19 @@
+import 'package:apod/modules/image_preview/utils/image_preview_utils.dart';
 import 'package:apod/shared/models/image_response.dart';
 import 'package:apod/shared/widgets/buttons/app_outlined_buttons.dart';
-import 'package:apod/shared/widgets/notifications/toast.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:share_plus/share_plus.dart';
 
-class ImagePreviewPage extends StatelessWidget {
+class ImagePreviewPage extends ConsumerWidget {
   const ImagePreviewPage({super.key, required this.image});
 
   final ImageResponse image;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -41,21 +40,8 @@ class ImagePreviewPage extends StatelessWidget {
                 ),
                 AppOutlinedButton(
                   icon: Icons.ios_share_outlined,
-                  onPressed: () {
-                    final BaseCacheManager baseCacheManager =
-                        DefaultCacheManager();
-
-                    baseCacheManager.getFileFromCache(image.url!).then((info) {
-                      info!.file.readAsBytes().then((bytes) async {
-                        final ShareResult result = await Share.shareXFiles(
-                          [XFile(info.file.path)],
-                        );
-
-                        if (result.status == ShareResultStatus.success) {
-                          showToastMessage(message: 'Share successful');
-                        }
-                      });
-                    });
+                  onPressed: () async {
+                    await ImagePreviewUtils.shareImage(ref, image);
                   },
                 )
               ],

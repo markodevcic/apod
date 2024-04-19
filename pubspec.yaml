@@ -35,6 +35,8 @@ dependencies:
   path_provider: ^2.1.3
   collection: ^1.18.0
   bot_toast: ^4.1.3
+  animated_digit: ^3.2.3
+  animated_flip_counter: ^0.3.4
   
 dev_dependencies:
   flutter_test:

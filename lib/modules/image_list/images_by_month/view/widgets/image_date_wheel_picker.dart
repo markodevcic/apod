@@ -31,7 +31,7 @@ class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
     final pageStorageKey = ref.read(pageStorageKeyProvider);
 
     return SizedBox(
-      width: 160,
+      width: 168,
       child: AppOutlinedButton(
         title: DateTime(widget.year, widget.month).stringify(),
         buttonShape: ButtonShape.square,

@@ -20,13 +20,13 @@ class ImagesMonthPicker extends ConsumerWidget {
     final pageStorageKey = ref.read(pageStorageKeyProvider);
 
     return SizedBox(
-      width: 268,
+      width: 276,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AppOutlinedButton(
             icon: Icons.keyboard_arrow_left_rounded,
-            disabledWhen: date.isCurrentMonth(initialDate),
+            isDisabled: date.isCurrentMonth(initialDate),
             buttonShape: ButtonShape.squareedRight,
             onPressed: () {
               ref.read(imagesDateProvider.notifier).decrementOneMonth();
@@ -42,7 +42,7 @@ class ImagesMonthPicker extends ConsumerWidget {
           ),
           AppOutlinedButton(
             icon: Icons.keyboard_arrow_right_rounded,
-            disabledWhen: date.isCurrentMonth(),
+            isDisabled: date.isCurrentMonth(),
             buttonShape: ButtonShape.squareedLeft,
             onPressed: () {
               ref.read(imagesDateProvider.notifier).incrementOneMonth();

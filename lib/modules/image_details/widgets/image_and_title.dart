@@ -1,4 +1,4 @@
-import 'package:apod/modules/image_preview/image_preview_page.dart';
+import 'package:apod/modules/image_preview/view/image_preview_page.dart';
 import 'package:apod/shared/models/image_response.dart';
 import 'package:apod/shared/widgets/animated/animated_ttitle.dart';
 import 'package:apod/shared/widgets/buttons/app_outlined_buttons.dart';

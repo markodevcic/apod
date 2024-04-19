@@ -10,7 +10,7 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PageWrapper.noButtons(
+    return const PageWrapper(
       title: 'Settings',
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),

@@ -1,9 +1,9 @@
-import 'package:apod/shared/models/image_response.dart';
+import 'package:apod/modules/image_list/random_images/providers/random_images_provider.dart';
+import 'package:apod/modules/image_list/shared/providers/page_storage_key_provider.dart';
 import 'package:apod/modules/image_list/shared/widgets/horizontal_image_list_view.dart';
 import 'package:apod/modules/image_list/shared/widgets/vertical_image_list_view.dart';
-import 'package:apod/modules/image_list/shared/providers/page_list_view_provider.dart';
-import 'package:apod/modules/image_list/shared/providers/page_storage_key_provider.dart';
-import 'package:apod/modules/image_list/random_images/providers/random_images_provider.dart';
+import 'package:apod/modules/settings/providers/image_list_view_direction_provider.dart';
+import 'package:apod/shared/models/image_response.dart';
 import 'package:apod/shared/widgets/buttons/app_outlined_buttons.dart';
 import 'package:apod/shared/widgets/wrappers/async_builder.dart';
 import 'package:apod/shared/widgets/wrappers/page_wrapper.dart';
@@ -16,7 +16,7 @@ class RandomImages extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final getRandomImages = ref.watch(getRandomImagesProvider);
-    final pageListViewDirection = ref.watch(pageListViewDirectionProvider);
+    final pageListViewDirection = ref.watch(imageListViewDirectionProvider);
     final pageStorageKey = ref.read(pageStorageKeyProvider);
 
     return PageWrapper(
@@ -34,7 +34,7 @@ class RandomImages extends ConsumerWidget {
         builder: (data) {
           final images = data as List<ImageResponse>;
 
-          return pageListViewDirection == PageListViewDirection.vertical
+          return pageListViewDirection == ImageListLayoutDirection.vertical
               ? VerticalImageList(
                   key: pageStorageKey.verticalList,
                   images: images,

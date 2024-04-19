@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final todayImageProvider =
     StateNotifierProvider<TodayImageNotifier, ImageResponse?>((ref) {
-  return TodayImageNotifier();
+  return TodayImageNotifier(ref);
 });
 
 final getTodayImageProvider = FutureProvider<ImageResponse?>((ref) async {
@@ -13,14 +13,17 @@ final getTodayImageProvider = FutureProvider<ImageResponse?>((ref) async {
 });
 
 class TodayImageNotifier extends StateNotifier<ImageResponse?> {
-  TodayImageNotifier() : super(null);
+  TodayImageNotifier(this.ref) : super(null);
+
+  Ref ref;
 
   Future<ImageResponse?> get() async {
     if (state != null && state!.date!.isToday()) {
       return state;
     }
 
-    final response = await DioClient.apiCall();
+    final dio = ref.read(dioClientProvider);
+    final response = await dio.apiCall();
 
     response.when(
       success: (data) {
