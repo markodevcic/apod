@@ -1,41 +1,39 @@
+import 'package:apod/shared/widgets/buttons/app_outlined_buttons.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
-import 'package:apod/shared/widgets/loaders/loader_with_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AsyncLoaderWithRetry extends StatelessWidget {
-  const AsyncLoaderWithRetry({super.key, this.onRetryTap, this.loadingMessage});
+class AsyncLoaderWithRetry extends ConsumerWidget {
+  const AsyncLoaderWithRetry({super.key, required this.provider});
 
-  final Function? onRetryTap;
-  final String? loadingMessage;
+  final AutoDisposeFutureProvider<dynamic> provider;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 200),
-          child: onRetryTap != null
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Refreshing data failed',
-                      style: context.textTheme.bodyMedium,
-                    ),
-                    TextButton(
-                      child: Text(
-                        'Retry',
-                        style: context.textTheme.labelSmall,
-                      ),
-                      onPressed: () => onRetryTap!(),
-                    ),
-                  ],
-                )
-              : LoaderWithText(
-                  text: loadingMessage ?? 'Refreshing',
-                ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Could not load data',
+                style: context.textTheme.bodySmall,
+              ),
+              const SizedBox(height: 8),
+              AppOutlinedButton(
+                onPressed: () async {
+                  try {
+                    return await ref.refresh(provider.future);
+                  } catch (_) {}
+                },
+                title: 'Retry',
+              ),
+            ],
+          ),
         ),
       ),
     );

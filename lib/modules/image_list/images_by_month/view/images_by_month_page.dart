@@ -17,7 +17,6 @@ class ImagesByMonthPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final getImagesByMonth = ref.watch(getImagesByMonthProvider);
     final pageListViewDirection = ref.watch(imageListViewDirectionProvider);
     final date = ref.watch(imagesDateProvider);
     final pageStorageKey = ref.read(pageStorageKeyProvider);
@@ -26,11 +25,9 @@ class ImagesByMonthPage extends ConsumerWidget {
       extendBodyBehindAppBar: true,
       actionWidget: const ImagesMonthPicker(),
       body: AsyncBuilder(
-        await: getImagesByMonth,
-        loadingMessage: 'Getting pictures for ${date.stringify()}',
-        builder: (data) {
-          final images = data as List<ImageResponse>;
-
+        provider: getImagesByMonthProvider,
+        loadingText: 'Getting pictures for ${date.stringify()}',
+        builder: (List<ImageResponse> images) {
           return pageListViewDirection == ImageListLayoutDirection.vertical
               ? VerticalImageList(
                   key: pageStorageKey.verticalList,

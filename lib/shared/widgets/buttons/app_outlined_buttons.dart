@@ -74,8 +74,14 @@ class _AppOutlinedButtonState extends ConsumerState<AppOutlinedButton> {
           ? null
           : () async {
               setState(() => isLoading = true);
-              await widget.onPressed();
-              if (context.mounted) setState(() => isLoading = false);
+              try {
+                await widget.onPressed();
+              } finally {
+                await Future.delayed(const Duration(milliseconds: 500));
+                if (mounted) {
+                  setState(() => isLoading = false);
+                }
+              }
             },
       child: AnimatedSize(
         duration: const Duration(milliseconds: 300),

@@ -3,11 +3,12 @@ import 'package:apod/modules/image_list/images_by_month/utils/images_by_month_pr
 import 'package:apod/services/network/dio_client.dart';
 import 'package:apod/shared/models/base_image_response.dart';
 import 'package:apod/shared/models/image_response.dart';
+import 'package:apod/shared/widgets/notifications/toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final getImagesByMonthProvider =
-    FutureProvider<List<ImageResponse>?>((ref) async {
+    FutureProvider.autoDispose<List<ImageResponse>?>((ref) async {
   final imagesByMonth = ref.watch(imagesByMonthProvider.notifier);
 
   return await imagesByMonth.get();
@@ -33,22 +34,23 @@ class ImagesByMonthNotifier extends StateNotifier<List<ImageResponse>?> {
     cancelToken = CancelToken();
 
     final dio = ref.read(dioClientProvider);
-    final response = await dio.apiCall(
-      queryParameters: {
-        'start_date': startDate,
-        'end_date': endDate,
-      },
-      cancelToken: cancelToken,
-    );
 
-    response.when(
-      success: (data) {
-        state = BaseImageResponse.fromMap(data).imageList.reversed.toList();
-      },
-      error: (data) {
-        state = null;
-      },
-    );
+    try {
+      final response = await dio.apiCall(
+        queryParameters: {
+          'start_date': startDate,
+          'end_date': endDate,
+        },
+        cancelToken: cancelToken,
+      );
+
+      state =
+          BaseImageResponse.fromMap(response.data).imageList.reversed.toList();
+    } catch (e) {
+      state = null;
+      ref.read(toastProvider).error(message: 'Error getting images by month');
+      throw Exception('Error getting images by month');
+    }
 
     return state;
   }

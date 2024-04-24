@@ -3,33 +3,42 @@ import 'package:apod/shared/widgets/loaders/loader_with_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AsyncBuilder extends StatelessWidget {
+class AsyncBuilder<T> extends ConsumerWidget {
   const AsyncBuilder({
     super.key,
+    required this.provider,
     required this.builder,
-    this.await,
-    this.onRetryTap,
-    this.loadingMessage,
-    this.animationTime = 300,
+    this.loadingText,
+    this.animationTime = 200,
   });
 
-  final Widget Function(Object?) builder;
-  final AsyncValue? await;
-  final Function? onRetryTap;
-  final String? loadingMessage;
+  final AutoDisposeFutureProvider<dynamic> provider;
+  final Widget Function(T) builder;
+  final String? loadingText;
   final int animationTime;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final future = ref.watch(provider);
+
     return Material(
       color: Colors.transparent,
-      child: AnimatedSwitcher(
+      child: AnimatedSize(
         duration: Duration(milliseconds: animationTime),
-        switchInCurve: Curves.easeInOutQuad,
-        child: await?.when(
-          data: (data) => builder(data),
-          error: (_, __) => AsyncLoaderWithRetry(onRetryTap: onRetryTap),
-          loading: () => LoaderWithText(text: loadingMessage),
+        curve: Curves.decelerate,
+        child: AnimatedSwitcher(
+          duration: Duration(milliseconds: animationTime * 2),
+          switchInCurve: Curves.easeInOutQuad,
+          child: future.when(
+            data: (data) => builder(data),
+            error: (_, __) => AsyncLoaderWithRetry(provider: provider),
+            loading: () => Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: LoaderWithText(text: loadingText),
+              ),
+            ),
+          ),
         ),
       ),
     );

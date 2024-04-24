@@ -29,7 +29,9 @@ class ClearImageCache extends ConsumerWidget {
                 useMaxContrast: imageCache.totalSize > 0,
                 onPressed: () async {
                   await imageCache.clearImageCache();
-                  ref.read(toastProvider).show(message: 'Image cache cleared');
+                  ref
+                      .read(toastProvider)
+                      .success(message: 'Image cache cleared');
                 },
               ),
             ],

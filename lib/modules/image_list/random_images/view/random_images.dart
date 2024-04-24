@@ -15,7 +15,6 @@ class RandomImages extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final getRandomImages = ref.watch(getRandomImagesProvider);
     final pageListViewDirection = ref.watch(imageListViewDirectionProvider);
     final pageStorageKey = ref.read(pageStorageKeyProvider);
 
@@ -29,8 +28,8 @@ class RandomImages extends ConsumerWidget {
         icon: Icons.replay_circle_filled_sharp,
       ),
       body: AsyncBuilder(
-        await: getRandomImages,
-        loadingMessage: 'Getting random images',
+        provider: getRandomImagesProvider,
+        loadingText: 'Getting random images',
         builder: (data) {
           final images = data as List<ImageResponse>;
 

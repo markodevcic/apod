@@ -4,8 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:apod/services/network/utils/api_exception.dart';
-import 'package:apod/services/network/utils/api_response.dart';
-import 'package:apod/shared/widgets/notifications/toast.dart';
+import 'package:apod/services/network/utils/endpoints.dart';
 import 'package:apod/utilities/constants/env_variable.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
@@ -21,7 +20,7 @@ class DioClient {
 
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: 'https://api.nasa.gov/planetary/apod',
+      baseUrl: Endpoint.baseUrl,
       connectTimeout: const Duration(seconds: 10),
       contentType: 'application/json; charset=utf-8',
     ),
@@ -53,7 +52,7 @@ class DioClient {
       },
     );
 
-  Future<ApiResponse> apiCall(
+  Future<Response> apiCall(
       {Map<String, dynamic>? queryParameters, CancelToken? cancelToken}) async {
     try {
       final response = await _dio.request(
@@ -65,30 +64,23 @@ class DioClient {
         },
         options: Options(
           method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-          },
         ),
         cancelToken: cancelToken,
       );
 
-      return ApiResponse.success(response.data);
+      return response;
     } on DioException catch (e) {
-      debugPrint('++++++++++ DIO EXCEPTION ++++++++++');
+      log('++++++++++ DIO EXCEPTION ++++++++++');
 
       final String err = ApiException.fromDioError(e);
 
-      debugPrint(err);
+      log(err);
 
-      ref.read(toastProvider).show(message: err, type: ToastType.error);
-
-      return ApiResponse.error(err);
+      rethrow;
     } on SocketException {
-      return ApiResponse.error(
-        'No internet connection',
-      );
-    } on Exception catch (e) {
-      return ApiResponse.error(e.toString());
+      rethrow;
+    } on Exception {
+      rethrow;
     }
   }
 }

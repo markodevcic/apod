@@ -1,8 +1,8 @@
+import 'package:apod/modules/home/providers/today_image_provider.dart';
 import 'package:apod/modules/home/view/widgets/app_title.dart';
 import 'package:apod/modules/home/view/widgets/background_logo_image.dart';
 import 'package:apod/modules/home/view/widgets/explore_images_options.dart';
 import 'package:apod/modules/home/view/widgets/settings_button.dart';
-import 'package:apod/modules/home/providers/today_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

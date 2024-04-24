@@ -1,4 +1,5 @@
 import 'package:apod/shared/providers/app_color_provider.dart';
+import 'package:apod/utilities/app_color_enum.dart';
 import 'package:apod/utilities/extensions/color_extensions.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,13 @@ class ToastMessage {
 
   Ref ref;
 
-  void show({required String message, ToastType? type = ToastType.success}) {
+  void success({required String message}) =>
+      _show(message: message, type: ToastType.success);
+
+  void error({required String message}) =>
+      _show(message: message, type: ToastType.error);
+
+  void _show({required String message, required ToastType type}) {
     BotToast.showNotification(
       title: (_) => Text(
         message,
@@ -21,7 +28,9 @@ class ToastMessage {
           fontSize: 18,
           fontWeight: FontWeight.normal,
           height: 1.5,
-          color: ref.read(appColorProvider).maxContrast(),
+          color: type == ToastType.error
+              ? AppColorTheme.spaceDustWhite.color
+              : ref.read(appColorProvider).maxContrast(),
         ),
       ),
       duration: const Duration(seconds: 5),
@@ -52,7 +61,9 @@ class ToastMessage {
           color: ref.read(appColorProvider).maxContrast(),
         ),
       ),
-      backgroundColor: ref.read(appColorProvider),
+      backgroundColor: type == ToastType.error
+          ? AppColorTheme.cometRed.color
+          : ref.read(appColorProvider),
     );
   }
 }

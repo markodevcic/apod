@@ -20,7 +20,7 @@ class ImagePreviewUtils {
     );
 
     if (result.status == ShareResultStatus.success) {
-      ref.read(toastProvider).show(message: 'Share successful');
+      ref.read(toastProvider).success(message: 'Share successful');
     }
   }
 }
