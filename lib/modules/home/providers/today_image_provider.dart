@@ -30,7 +30,7 @@ class TodayImageNotifier extends StateNotifier<ImageResponse?> {
     try {
       final Response response = await dio.apiCall();
 
-      state = ImageResponse.fromMap(response.data);
+      state = ImageResponse.fromJson(response.data);
     } catch (e) {
       state = null;
       ref.read(toastProvider).error(message: 'Error getting today image');

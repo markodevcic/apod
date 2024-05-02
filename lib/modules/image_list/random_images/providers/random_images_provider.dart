@@ -1,5 +1,4 @@
 import 'package:apod/services/network/dio_client.dart';
-import 'package:apod/shared/models/base_image_response.dart';
 import 'package:apod/shared/models/image_response.dart';
 import 'package:apod/shared/widgets/notifications/toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,7 +30,9 @@ class RandomImagesNotifier extends StateNotifier<List<ImageResponse>?> {
         },
       );
 
-      state = BaseImageResponse.fromMap(response.data).imageList;
+      state = response.data
+          .map<ImageResponse>((image) => ImageResponse.fromJson(image))
+          .toList();
     } catch (e) {
       state = null;
       ref.read(toastProvider).error(message: 'Error getting random images');

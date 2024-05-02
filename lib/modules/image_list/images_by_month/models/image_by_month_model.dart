@@ -1,29 +1,30 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:apod/shared/models/image_response.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class ImageByMonthModel {
-  final ImagesDateRange dateRange;
-  final List<ImageResponse> images;
+part 'image_by_month_model.freezed.dart';
+part 'image_by_month_model.g.dart';
 
-  ImageByMonthModel({required this.dateRange, required this.images});
+@freezed
+class ImageByMonthModel with _$ImageByMonthModel {
+  const factory ImageByMonthModel({
+    required ImagesDateRange dateRange,
+    required List<ImageResponse> images,
+  }) = _ImageByMonthModel;
 
-  factory ImageByMonthModel.fromMap(Map<String, dynamic> data) {
-    return ImageByMonthModel(
-      dateRange: ImagesDateRange.fromMap(data['dateRange']),
-      images: data['images'].map((e) => ImageResponse.fromMap(e)).toList(),
-    );
-  }
+  factory ImageByMonthModel.fromJson(Map<String, dynamic> json) =>
+      _$ImageByMonthModelFromJson(json);
 }
 
-class ImagesDateRange {
-  final String startDate;
-  final String endDate;
+@freezed
+class ImagesDateRange with _$ImagesDateRange {
+  const factory ImagesDateRange({
+    required String startDate,
+    required String endDate,
+  }) = _ImagesDateRange;
 
-  ImagesDateRange({required this.startDate, required this.endDate});
-
-  factory ImagesDateRange.fromMap(Map<String, dynamic> data) {
-    return ImagesDateRange(
-      startDate: data['startDate'] as String,
-      endDate: data['endDate'] as String,
-    );
-  }
+  factory ImagesDateRange.fromJson(Map<String, dynamic> json) =>
+      _$ImagesDateRangeFromJson(json);
 }
