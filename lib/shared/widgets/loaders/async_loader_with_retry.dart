@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class AsyncLoaderWithRetry extends ConsumerWidget {
   const AsyncLoaderWithRetry({super.key, required this.provider});
 
-  final AutoDisposeFutureProvider<dynamic> provider;
+  final AutoDisposeAsyncNotifierProvider<dynamic, dynamic> provider;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,7 +20,7 @@ class AsyncLoaderWithRetry extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Could not load data',
+                ref.watch(provider).error.toString(),
                 style: context.textTheme.bodySmall,
               ),
               const SizedBox(height: 8),

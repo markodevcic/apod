@@ -29,7 +29,7 @@ class ImagesMonthPicker extends ConsumerWidget {
             isDisabled: date.isCurrentMonth(initialDate),
             buttonShape: ButtonShape.squareedRight,
             onPressed: () {
-              ref.read(imagesDateProvider.notifier).decrementOneMonth();
+              ref.read(imagesDateProvider.notifier).decrementMonth();
               debouncer.run(() {
                 ref.invalidate(imagesByMonthProvider);
                 pageStorageKey.updateKeys();
@@ -45,7 +45,7 @@ class ImagesMonthPicker extends ConsumerWidget {
             isDisabled: date.isCurrentMonth(),
             buttonShape: ButtonShape.squareedLeft,
             onPressed: () {
-              ref.read(imagesDateProvider.notifier).incrementOneMonth();
+              ref.read(imagesDateProvider.notifier).incrementMonth();
               debouncer.run(() {
                 ref.invalidate(imagesByMonthProvider);
                 pageStorageKey.updateKeys();

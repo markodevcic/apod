@@ -24,7 +24,7 @@ class TodayImageSection extends ConsumerWidget {
             child: SizedBox(
               height: 200,
               child: AsyncBuilder(
-                provider: getTodayImageProvider,
+                provider: todayImageProvider,
                 builder: (ImageResponse image) {
                   return Hero(
                     tag: image.title!,

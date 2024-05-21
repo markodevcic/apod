@@ -1,33 +1,29 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final imagesDateProvider =
-    StateNotifierProvider.autoDispose<ImagesDateNotifier, DateTime>(
-  (ref) => ImagesDateNotifier(ref),
-);
+part 'images_date_provider.g.dart';
 
-class ImagesDateNotifier extends StateNotifier<DateTime> {
-  ImagesDateNotifier(this.ref)
-      : super(DateTime(DateTime.now().year, DateTime.now().month));
-
-  Ref ref;
+@riverpod
+class ImagesDate extends _$ImagesDate {
+  @override
+  DateTime build() => DateTime(DateTime.now().year, DateTime.now().month);
 
   void setMonth(DateTime date) {
-    state = state.copyWith(year: date.year, month: date.month);
+    state = DateTime(date.year, date.month);
   }
 
-  void incrementOneMonth() {
+  void incrementMonth() {
     if (state.month == 12) {
-      state = state.copyWith(month: 1, year: state.year + 1);
+      state = DateTime(state.year + 1, 1);
     } else {
-      state = state.copyWith(month: state.month + 1);
+      state = DateTime(state.year, state.month + 1);
     }
   }
 
-  void decrementOneMonth() {
+  void decrementMonth() {
     if (state.month == 1) {
-      state = state.copyWith(month: 12, year: state.year - 1);
+      state = DateTime(state.year - 1, 12);
     } else {
-      state = state.copyWith(month: state.month - 1);
+      state = DateTime(state.year, state.month - 1);
     }
   }
 }

@@ -10,8 +10,8 @@ import 'package:apod/shared/widgets/wrappers/page_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RandomImages extends ConsumerWidget {
-  const RandomImages({super.key});
+class RandomImagesPage extends ConsumerWidget {
+  const RandomImagesPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,12 +23,14 @@ class RandomImages extends ConsumerWidget {
       actionWidget: AppOutlinedButton(
         onPressed: () async {
           ref.invalidate(randomImagesProvider);
-          pageStorageKey.updateKeys();
+          // return await ref
+          //     .refresh(randomImagesProvider.future)
+          //     .then((value) => pageStorageKey.updateKeys());
         },
         icon: Icons.replay_circle_filled_sharp,
       ),
       body: AsyncBuilder(
-        provider: getRandomImagesProvider,
+        provider: randomImagesProvider,
         loadingText: 'Getting random images',
         builder: (data) {
           final images = data as List<ImageResponse>;

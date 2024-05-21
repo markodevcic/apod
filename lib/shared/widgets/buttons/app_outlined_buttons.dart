@@ -77,7 +77,6 @@ class _AppOutlinedButtonState extends ConsumerState<AppOutlinedButton> {
               try {
                 await widget.onPressed();
               } finally {
-                await Future.delayed(const Duration(milliseconds: 500));
                 if (mounted) {
                   setState(() => isLoading = false);
                 }
@@ -89,7 +88,7 @@ class _AppOutlinedButtonState extends ConsumerState<AppOutlinedButton> {
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 120),
           child: isLoading
-              ? const Loader()
+              ? const FittedBox(child: Loader())
               : widget.title != null
                   ? Text(
                       widget.title!,

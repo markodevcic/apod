@@ -1,26 +1,18 @@
 import 'package:apod/services/network/dio_client.dart';
 import 'package:apod/shared/models/image_response.dart';
 import 'package:apod/shared/widgets/notifications/toast.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final getRandomImagesProvider =
-    FutureProvider.autoDispose<List<ImageResponse>?>(
-  (ref) async {
-    return await ref.watch(randomImagesProvider.notifier).get();
-  },
-);
+part 'random_images_provider.g.dart';
 
-final randomImagesProvider = StateNotifierProvider.autoDispose<
-    RandomImagesNotifier, List<ImageResponse>?>(
-  (ref) => RandomImagesNotifier(ref),
-);
-
-class RandomImagesNotifier extends StateNotifier<List<ImageResponse>?> {
-  RandomImagesNotifier(this.ref) : super(null);
-
-  Ref ref;
+@riverpod
+class RandomImages extends _$RandomImages {
+  @override
+  Future<List<ImageResponse>?> build() async => await get();
 
   Future<List<ImageResponse>?> get() async {
+    state = const AsyncValue.loading();
+
     final dio = ref.read(dioClientProvider);
 
     try {
@@ -30,15 +22,13 @@ class RandomImagesNotifier extends StateNotifier<List<ImageResponse>?> {
         },
       );
 
-      state = response.data
+      return response.data
           .map<ImageResponse>((image) => ImageResponse.fromJson(image))
           .toList();
     } catch (e) {
-      state = null;
+      state = const AsyncValue.data(null);
       ref.read(toastProvider).error(message: 'Error getting random images');
       throw Exception('Error getting random images');
     }
-
-    return state;
   }
 }

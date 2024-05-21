@@ -76,11 +76,11 @@ class DioClient {
 
       log(err);
 
-      rethrow;
+      throw err;
     } on SocketException {
-      rethrow;
-    } on Exception {
-      rethrow;
+      throw ApiException.fromSocketException();
+    } on Exception catch (e) {
+      throw e.toString();
     }
   }
 }

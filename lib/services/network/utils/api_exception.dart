@@ -50,4 +50,8 @@ class ApiException {
         return 'Oops something went wrong!';
     }
   }
+
+  static String fromSocketException() {
+    return 'No internet connection';
+  }
 }

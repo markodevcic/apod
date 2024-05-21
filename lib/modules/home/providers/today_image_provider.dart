@@ -3,26 +3,23 @@ import 'package:apod/shared/models/image_response.dart';
 import 'package:apod/shared/widgets/notifications/toast.dart';
 import 'package:apod/utilities/extensions/string_extensions.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final todayImageProvider =
-    StateNotifierProvider<TodayImageNotifier, ImageResponse?>((ref) {
-  return TodayImageNotifier(ref);
-});
+part 'today_image_provider.g.dart';
 
-final getTodayImageProvider =
-    FutureProvider.autoDispose<ImageResponse?>((ref) async {
-  return await ref.watch(todayImageProvider.notifier).get();
-});
+// @riverpod
+// Future<ImageResponse?> getTodayImage(GetTodayImageRef ref) async {
+//   return await ref.watch(todayImageProvider.notifier).get();
+// }
 
-class TodayImageNotifier extends StateNotifier<ImageResponse?> {
-  TodayImageNotifier(this.ref) : super(null);
-
-  Ref ref;
+@riverpod
+class TodayImage extends _$TodayImage {
+  @override
+  Future<ImageResponse?> build() async => await get();
 
   Future<ImageResponse?> get() async {
-    if (state != null && state!.date!.isToday()) {
-      return state;
+    if (state.hasValue && state.value!.date!.isToday()) {
+      return state.value;
     }
 
     final dio = ref.read(dioClientProvider);
@@ -30,13 +27,10 @@ class TodayImageNotifier extends StateNotifier<ImageResponse?> {
     try {
       final Response response = await dio.apiCall();
 
-      state = ImageResponse.fromJson(response.data);
+      return ImageResponse.fromJson(response.data);
     } catch (e) {
-      state = null;
       ref.read(toastProvider).error(message: 'Error getting today image');
       throw Exception('Error getting today image');
     }
-
-    return state;
   }
 }

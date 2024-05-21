@@ -1,8 +1,6 @@
 import 'package:apod/modules/home/view/widgets/today_image_sections.dart';
-import 'package:apod/modules/image_list/images_by_month/providers/images_by_month_provider.dart';
 import 'package:apod/modules/image_list/images_by_month/view/images_by_month_page.dart';
-import 'package:apod/modules/image_list/random_images/providers/random_images_provider.dart';
-import 'package:apod/modules/image_list/random_images/view/random_images.dart';
+import 'package:apod/modules/image_list/random_images/view/random_images_page.dart';
 import 'package:apod/shared/widgets/buttons/app_tile.dart';
 import 'package:apod/utilities/app_color_enum.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
@@ -74,7 +72,6 @@ class ExploreImagesOptions extends ConsumerWidget {
                       title: 'Explore Pictures by Month',
                       color: AppColorTheme.deepSpaceBlack.color,
                       onTap: () {
-                        ref.invalidate(imagesByMonthProvider);
                         context.push(const ImagesByMonthPage());
                       },
                     ),
@@ -82,8 +79,7 @@ class ExploreImagesOptions extends ConsumerWidget {
                       title: 'View Random Pictures',
                       color: AppColorTheme.deepSpaceBlack.color,
                       onTap: () {
-                        ref.invalidate(randomImagesProvider);
-                        context.push(const RandomImages());
+                        context.push(const RandomImagesPage());
                       },
                     ),
                   ],

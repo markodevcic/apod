@@ -12,7 +12,7 @@ class AsyncBuilder<T> extends ConsumerWidget {
     this.animationTime = 200,
   });
 
-  final AutoDisposeFutureProvider<dynamic> provider;
+  final AutoDisposeAsyncNotifierProvider<dynamic, dynamic> provider;
   final Widget Function(T) builder;
   final String? loadingText;
   final int animationTime;

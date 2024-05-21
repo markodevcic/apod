@@ -1,9 +1,9 @@
-import 'package:apod/utilities/constants/app_color.dart';
 import 'package:apod/modules/image_details/image_details_page.dart';
 import 'package:apod/shared/models/image_response.dart';
-import 'package:apod/utilities/extensions/build_context_extensions.dart';
-import 'package:apod/shared/widgets/loaders/loader.dart';
 import 'package:apod/shared/widgets/animated/animated_ttitle.dart';
+import 'package:apod/shared/widgets/loaders/loader.dart';
+import 'package:apod/utilities/constants/app_color.dart';
+import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -118,12 +118,14 @@ class AppNetworkImage extends StatelessWidget {
             fit: StackFit.expand,
             alignment: Alignment.centerLeft,
             children: [
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 16),
+                  padding: const EdgeInsets.only(left: 16),
                   child: Icon(
-                    Icons.broken_image,
+                    image.mediaType == 'image'
+                        ? Icons.broken_image
+                        : Icons.error_outline_rounded,
                     color: AppColor.galacticPurple,
                     size: 46,
                   ),
@@ -132,10 +134,8 @@ class AppNetworkImage extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: AnimatedTitle(
-                  title: image.mediaType == 'image'
-                      ? 'Couldn\'t retrieve image'
-                      : 'No preview image available',
-                  style: context.textTheme.bodyMedium,
+                  title: 'Couldn\'t retrieve image',
+                  style: context.textTheme.bodySmall,
                 ),
               ),
               if (isButton && image.url == null)

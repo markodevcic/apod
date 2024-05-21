@@ -25,7 +25,7 @@ class ImagesByMonthPage extends ConsumerWidget {
       extendBodyBehindAppBar: true,
       actionWidget: const ImagesMonthPicker(),
       body: AsyncBuilder(
-        provider: getImagesByMonthProvider,
+        provider: imagesByMonthProvider,
         loadingText: 'Getting pictures for ${date.stringify()}',
         builder: (List<ImageResponse> images) {
           return pageListViewDirection == ImageListLayoutDirection.vertical

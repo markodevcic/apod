@@ -2,30 +2,21 @@ import 'package:apod/modules/image_list/images_by_month/providers/images_date_pr
 import 'package:apod/modules/image_list/images_by_month/utils/images_by_month_provider_helper.dart';
 import 'package:apod/services/network/dio_client.dart';
 import 'package:apod/shared/models/image_response.dart';
-import 'package:apod/shared/widgets/notifications/toast.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final getImagesByMonthProvider =
-    FutureProvider.autoDispose<List<ImageResponse>?>((ref) async {
-  final imagesByMonth = ref.watch(imagesByMonthProvider.notifier);
+part 'images_by_month_provider.g.dart';
 
-  return await imagesByMonth.get();
-});
-
-final imagesByMonthProvider =
-    StateNotifierProvider<ImagesByMonthNotifier, List<ImageResponse>?>((ref) {
-  return ImagesByMonthNotifier(ref);
-});
-
-class ImagesByMonthNotifier extends StateNotifier<List<ImageResponse>?> {
-  ImagesByMonthNotifier(this.ref) : super(null);
-
-  Ref ref;
+@riverpod
+class ImagesByMonth extends _$ImagesByMonth {
+  @override
+  Future<List<ImageResponse>?> build() async => await get();
 
   CancelToken cancelToken = CancelToken();
 
   Future<List<ImageResponse>?> get() async {
+    state = const AsyncValue.loading();
+
     final (startDate, endDate) = ImagesByMonthProviderHelper.setStarAndEndDate(
         ref.read(imagesDateProvider));
 
@@ -43,15 +34,11 @@ class ImagesByMonthNotifier extends StateNotifier<List<ImageResponse>?> {
         cancelToken: cancelToken,
       );
 
-      state = response.data
+      return response.data
           .map<ImageResponse>((image) => ImageResponse.fromJson(image))
           .toList();
     } catch (e) {
-      state = null;
-      ref.read(toastProvider).error(message: 'Error getting images by month');
-      throw Exception('Error getting images by month');
+      throw e.toString();
     }
-
-    return state;
   }
 }

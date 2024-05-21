@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:apod/utilities/constants/app_color.dart';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -17,6 +17,13 @@ class VideoWebViewState extends State<VideoWebView> {
 
   @override
   void initState() {
+    late Uri url;
+    Uri uri = Uri.parse(widget.url!);
+    if (uri.scheme != 'http' && uri.scheme != 'https') {
+      url = Uri.parse('https://${uri.host}${uri.path}');
+    } else {
+      url = Uri.parse(widget.url!);
+    }
     super.initState();
     _webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -41,7 +48,7 @@ class VideoWebViewState extends State<VideoWebView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(widget.url!));
+      ..loadRequest(url);
   }
 
   @override
