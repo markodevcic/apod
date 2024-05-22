@@ -36,6 +36,8 @@ class ImagesByMonth extends _$ImagesByMonth {
 
       return response.data
           .map<ImageResponse>((image) => ImageResponse.fromJson(image))
+          .toList()
+          .reversed
           .toList();
     } catch (e) {
       throw e.toString();

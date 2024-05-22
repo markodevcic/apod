@@ -19,8 +19,8 @@ class ImagePreviewUtils {
       [XFile(cachedImage!.file.path)],
     );
 
-    if (result.status == ShareResultStatus.success) {
-      ref.read(toastProvider).success(message: 'Share successful');
+    if (result.raw.contains('SaveToCameraRoll')) {
+      ref.read(toastProvider).success(message: 'Image saved');
     }
   }
 }
