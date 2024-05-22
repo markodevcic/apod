@@ -23,7 +23,7 @@ class ImagesByMonth extends _$ImagesByMonth {
     cancelToken.cancel();
     cancelToken = CancelToken();
 
-    final dio = ref.read(dioClientProvider);
+    final dio = ref.read(dioClientProvider.notifier);
 
     try {
       final response = await dio.apiCall(
@@ -36,6 +36,8 @@ class ImagesByMonth extends _$ImagesByMonth {
 
       return response.data
           .map<ImageResponse>((image) => ImageResponse.fromJson(image))
+          .toList()
+          .reversed
           .toList();
     } catch (e) {
       throw e.toString();

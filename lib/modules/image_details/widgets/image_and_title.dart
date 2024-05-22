@@ -3,7 +3,7 @@ import 'package:apod/shared/models/image_response.dart';
 import 'package:apod/shared/widgets/animated/animated_ttitle.dart';
 import 'package:apod/shared/widgets/buttons/app_outlined_buttons.dart';
 import 'package:apod/shared/widgets/media/app_network_image.dart';
-import 'package:apod/utilities/constants/app_color.dart';
+import 'package:apod/utilities/constants/custom_color.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -41,8 +41,8 @@ class ImageAndTitle extends StatelessWidget {
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
                 colors: [
-                  AppColor.deepSpaceBlack,
-                  AppColor.deepSpaceBlack.withOpacity(0.5),
+                  CustomColor.deepSpaceBlack,
+                  CustomColor.deepSpaceBlack.withOpacity(0.5),
                   Colors.transparent,
                 ],
               ),

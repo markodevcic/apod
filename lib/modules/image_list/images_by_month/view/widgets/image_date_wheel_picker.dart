@@ -3,7 +3,7 @@ import 'package:apod/modules/image_list/images_by_month/providers/images_date_pr
 import 'package:apod/modules/image_list/shared/providers/page_storage_key_provider.dart';
 import 'package:apod/shared/providers/app_color_provider.dart';
 import 'package:apod/shared/widgets/buttons/app_outlined_buttons.dart';
-import 'package:apod/utilities/constants/app_color.dart';
+import 'package:apod/utilities/constants/custom_color.dart';
 import 'package:apod/utilities/constants/initial_date.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:apod/utilities/extensions/date_time_extensions.dart';
@@ -39,7 +39,7 @@ class _ImageDateWheelState extends ConsumerState<ImageDateWheelPicker> {
           showDialog(
             context: context,
             barrierDismissible: true,
-            barrierColor: AppColor.deepSpaceBlack.withOpacity(0.3),
+            barrierColor: CustomColor.deepSpaceBlack.withOpacity(0.3),
             builder: (builderContext) {
               return Center(
                 child: Material(

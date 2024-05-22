@@ -1,4 +1,4 @@
-import 'package:apod/utilities/constants/app_color.dart';
+import 'package:apod/utilities/constants/custom_color.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -36,7 +36,7 @@ class AppTitle extends StatelessWidget {
                 'Astronomy Picture of the Day',
                 textAlign: TextAlign.center,
                 style: context.textTheme.titleMedium!.copyWith(
-                  color: AppColor.lunarWhite.withOpacity(0.7),
+                  color: CustomColor.lunarWhite.withOpacity(0.7),
                 ),
               ),
             ),

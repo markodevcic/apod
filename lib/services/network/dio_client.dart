@@ -6,17 +6,16 @@ import 'dart:io';
 import 'package:apod/services/network/utils/api_exception.dart';
 import 'package:apod/services/network/utils/endpoints.dart';
 import 'package:apod/utilities/constants/env_variable.dart';
-import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:log_tools/log_tools.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final dioClientProvider = Provider((ref) => DioClient(ref));
+part 'dio_client.g.dart';
 
-class DioClient {
-  DioClient(this.ref);
-
-  Ref ref;
+@riverpod
+class DioClient extends _$DioClient {
+  @override
+  Dio build() => _dio;
 
   final Dio _dio = Dio(
     BaseOptions(
@@ -45,10 +44,7 @@ class DioClient {
     )
     ..interceptors.addAll(
       {
-        if (kDebugMode)
-          CurlLoggerDioInterceptor(
-            printOnSuccess: true,
-          ),
+        LogToolsDioInterceptor(),
       },
     );
 

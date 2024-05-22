@@ -1,4 +1,4 @@
-import 'package:apod/utilities/constants/app_color.dart';
+import 'package:apod/utilities/constants/custom_color.dart';
 import 'package:flutter/material.dart';
 
 enum LayoutDirection { vertical, horizontal }
@@ -53,28 +53,28 @@ class LayoutBoxPart extends StatelessWidget {
                     alignment == LayoutAlignment.start
                 ? BorderSide.none
                 : const BorderSide(
-                    color: AppColor.lunarWhite,
+                    color: CustomColor.lunarWhite,
                     width: 1,
                   ),
             bottom: direction == LayoutDirection.vertical &&
                     alignment == LayoutAlignment.end
                 ? BorderSide.none
                 : const BorderSide(
-                    color: AppColor.lunarWhite,
+                    color: CustomColor.lunarWhite,
                     width: 1,
                   ),
             right: direction == LayoutDirection.horizontal &&
                     alignment == LayoutAlignment.end
                 ? BorderSide.none
                 : const BorderSide(
-                    color: AppColor.lunarWhite,
+                    color: CustomColor.lunarWhite,
                     width: 1,
                   ),
             left: direction == LayoutDirection.horizontal &&
                     alignment == LayoutAlignment.start
                 ? BorderSide.none
                 : const BorderSide(
-                    color: AppColor.lunarWhite,
+                    color: CustomColor.lunarWhite,
                     width: 1,
                   ),
           ),

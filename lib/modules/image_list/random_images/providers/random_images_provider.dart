@@ -13,13 +13,11 @@ class RandomImages extends _$RandomImages {
   Future<List<ImageResponse>?> get() async {
     state = const AsyncValue.loading();
 
-    final dio = ref.read(dioClientProvider);
+    final dio = ref.read(dioClientProvider.notifier);
 
     try {
       final response = await dio.apiCall(
-        queryParameters: {
-          'count': 30,
-        },
+        queryParameters: {'count': 30},
       );
 
       return response.data
@@ -28,7 +26,7 @@ class RandomImages extends _$RandomImages {
     } catch (e) {
       state = const AsyncValue.data(null);
       ref.read(toastProvider).error(message: 'Error getting random images');
-      throw Exception('Error getting random images');
+      throw 'Error getting random images';
     }
   }
 }

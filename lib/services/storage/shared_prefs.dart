@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:apod/utilities/app_color_enum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
@@ -9,12 +12,16 @@ class SharedPrefs {
     _instance = await SharedPreferences.getInstance();
   }
 
-  static Future saveAppColor(String colorName) async {
+  static Future saveAppColor(Color color) async {
+    final colorName = AppColorTheme.values
+        .firstWhere((appColor) => appColor.color == color)
+        .name;
     await _instance.setString('colorName', colorName);
   }
 
-  static String loadAppColor() {
-    return _instance.getString('colorName') ?? 'cosmicBlue';
+  static Color loadAppColor() {
+    final String colorName = _instance.getString('colorName') ?? 'cosmicBlue';
+    return AppColorTheme.values.byName(colorName).color;
   }
 
   static Future saveListViewDirection(String direction) async {

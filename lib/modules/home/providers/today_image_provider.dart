@@ -7,11 +7,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'today_image_provider.g.dart';
 
-// @riverpod
-// Future<ImageResponse?> getTodayImage(GetTodayImageRef ref) async {
-//   return await ref.watch(todayImageProvider.notifier).get();
-// }
-
 @riverpod
 class TodayImage extends _$TodayImage {
   @override
@@ -22,7 +17,7 @@ class TodayImage extends _$TodayImage {
       return state.value;
     }
 
-    final dio = ref.read(dioClientProvider);
+    final dio = ref.read(dioClientProvider.notifier);
 
     try {
       final Response response = await dio.apiCall();
@@ -30,7 +25,7 @@ class TodayImage extends _$TodayImage {
       return ImageResponse.fromJson(response.data);
     } catch (e) {
       ref.read(toastProvider).error(message: 'Error getting today image');
-      throw Exception('Error getting today image');
+      throw 'Error getting today image';
     }
   }
 }

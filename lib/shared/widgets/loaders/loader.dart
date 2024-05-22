@@ -1,4 +1,4 @@
-import 'package:apod/utilities/constants/app_color.dart';
+import 'package:apod/utilities/constants/custom_color.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -11,7 +11,7 @@ class Loader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: LoadingAnimationWidget.dotsTriangle(
-        color: AppColor.lunarWhite,
+        color: CustomColor.lunarWhite,
         size: size ?? 20,
       ),
     );

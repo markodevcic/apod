@@ -1,4 +1,4 @@
-import 'package:apod/utilities/constants/app_color.dart';
+import 'package:apod/utilities/constants/custom_color.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -27,7 +27,7 @@ class VideoWebViewState extends State<VideoWebView> {
     super.initState();
     _webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(AppColor.cosmicBlue)
+      ..setBackgroundColor(CustomColor.cosmicBlue)
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (progress) {

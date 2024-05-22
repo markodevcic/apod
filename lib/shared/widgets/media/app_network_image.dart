@@ -2,7 +2,7 @@ import 'package:apod/modules/image_details/image_details_page.dart';
 import 'package:apod/shared/models/image_response.dart';
 import 'package:apod/shared/widgets/animated/animated_ttitle.dart';
 import 'package:apod/shared/widgets/loaders/loader.dart';
-import 'package:apod/utilities/constants/app_color.dart';
+import 'package:apod/utilities/constants/custom_color.dart';
 import 'package:apod/utilities/extensions/build_context_extensions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -108,7 +108,7 @@ class AppNetworkImage extends StatelessWidget {
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: [
-                AppColor.galacticPurple,
+                CustomColor.galacticPurple,
                 Colors.black,
               ],
             ),
@@ -126,7 +126,7 @@ class AppNetworkImage extends StatelessWidget {
                     image.mediaType == 'image'
                         ? Icons.broken_image
                         : Icons.error_outline_rounded,
-                    color: AppColor.galacticPurple,
+                    color: CustomColor.galacticPurple,
                     size: 46,
                   ),
                 ),

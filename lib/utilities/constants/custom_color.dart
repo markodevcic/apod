@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppColor {
+class CustomColor {
   static const Color deepSpaceBlack = Color(0xFF000000);
   static const Color cosmicBlue = Color(0xFF001F3F);
   static const Color galacticPurple = Color(0xFF4B0082);

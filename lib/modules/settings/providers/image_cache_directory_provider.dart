@@ -5,27 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 
-// final isImageCacheEmptyProvider =
-//     StateNotifierProvider.autoDispose<IsImageCacheEmptyNotifier, bool>(
-//   (ref) => IsImageCacheEmptyNotifier(ref),
-// );
-
-// class IsImageCacheEmptyNotifier extends StateNotifier<bool> {
-//   IsImageCacheEmptyNotifier(this.ref) : super(true) {
-//     init();
-//   }
-
-//   final Ref ref;
-
-//   void init() async {
-//     state = await ref.read(imageCacheDirectoryProvider).init();
-//   }
-
-//   Future<void> clearImageCache() async {
-//     state = await ref.read(imageCacheDirectoryProvider).clearImageCache();
-//   }
-// }
-
 final imageCacheDirectoryProvider =
     ChangeNotifierProvider.autoDispose<ImageCacheDirectoryNotifier>(
   (ref) => ImageCacheDirectoryNotifier(),

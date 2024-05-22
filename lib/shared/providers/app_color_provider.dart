@@ -1,20 +1,16 @@
 import 'package:apod/services/storage/shared_prefs.dart';
-import 'package:apod/utilities/app_color_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final appColorProvider = StateNotifierProvider<AppColorNotifier, Color>((ref) {
-  return AppColorNotifier();
-});
+part 'app_color_provider.g.dart';
 
-class AppColorNotifier extends StateNotifier<Color> {
-  AppColorNotifier()
-      : super(AppColorTheme.values.byName(SharedPrefs.loadAppColor()).color);
+@riverpod
+class AppColor extends _$AppColor {
+  @override
+  Color build() => SharedPrefs.loadAppColor();
 
   void changeColor(Color color) {
-    SharedPrefs.saveAppColor(AppColorTheme.values
-        .firstWhere((appColor) => appColor.color == color)
-        .name);
+    SharedPrefs.saveAppColor(color);
     state = color;
   }
 }

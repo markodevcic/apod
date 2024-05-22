@@ -1,6 +1,6 @@
-import 'package:apod/utilities/constants/app_color.dart';
 import 'package:apod/shared/models/image_response.dart';
 import 'package:apod/shared/widgets/media/app_network_image.dart';
+import 'package:apod/utilities/constants/custom_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:snapping_page_scroll/snapping_page_scroll.dart';
@@ -28,7 +28,7 @@ class HorizontalImageListView extends ConsumerWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: AppColor.galacticPurple,
+                  color: CustomColor.galacticPurple,
                   width: 1,
                 ),
               ),

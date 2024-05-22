@@ -1,7 +1,7 @@
 import 'package:apod/modules/splash/splash.dart';
 import 'package:apod/services/storage/shared_prefs.dart';
 import 'package:apod/shared/providers/app_color_provider.dart';
-import 'package:apod/utilities/constants/app_color.dart';
+import 'package:apod/utilities/constants/custom_color.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,7 +37,7 @@ class MyApp extends ConsumerWidget {
       theme: ThemeData(
         colorScheme: const ColorScheme.dark(),
         splashFactory: NoSplash.splashFactory,
-        highlightColor: AppColor.lunarWhite.withOpacity(0.2),
+        highlightColor: CustomColor.lunarWhite.withOpacity(0.2),
         useMaterial3: true,
         fontFamily: GoogleFonts.interTight().fontFamily,
         textTheme: const TextTheme(
@@ -65,7 +65,7 @@ class MyApp extends ConsumerWidget {
             height: 1.5,
           ),
         ),
-        scaffoldBackgroundColor: AppColor.deepSpaceBlack,
+        scaffoldBackgroundColor: CustomColor.deepSpaceBlack,
         appBarTheme: AppBarTheme(
           titleTextStyle: const TextStyle(
             fontSize: 20,
